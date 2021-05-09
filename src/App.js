@@ -1,6 +1,6 @@
 import Background from './components/Background';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import Home from './components/Home';
+import StartMenu from './components/StartMenu';
 import './App.css';
 
 const App = () => {
@@ -8,9 +8,9 @@ const App = () => {
 		<>
 			<Background />
 			<BrowserRouter>
-				<Redirect from="/" to="/home" />
+				<Redirect from="/" to="/start" />
 				<Switch>
-					<Route path="/home" render={Home} />
+					<Route path="/start" exact render={StartMenu} />
 					{/* <Route path="/projects" exact render={} /> */}
 				</Switch>
 			</BrowserRouter>

@@ -1,0 +1,32 @@
+import './StartMenu.css';
+
+const StartMenu = () => {
+	return (
+		<div className="startmenu">
+			<div className="startmenu-header">
+				<h1>Welcome to the hardest memory game</h1>
+				<h6>(  not even close  )</h6>
+			</div>
+			<div className="startmenu-options">
+				<div className="options-diffs">
+					<h3>Pick a difficulty</h3>
+					<div className="diffs-box">
+						<div className="diff-option">3X3</div>
+						<div className="diff-option">5X5</div>
+						<div className="diff-option">7X7</div>
+					</div>
+				</div>
+				<div className="options-setts">
+					<h3>settings</h3>
+					<div className="setts-box">
+						<div className="sett-option">Turn off background</div>
+						<div className="sett-option">Languages</div>
+					</div>
+				</div>
+			</div>
+			<div className="startmenu-bt">GO!</div>
+		</div>
+	);
+};
+
+export default StartMenu;
