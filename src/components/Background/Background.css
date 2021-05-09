@@ -1,0 +1,34 @@
+:root {
+	--gradient: linear-gradient(
+		45deg,
+		#1d1160,
+		#800080,
+		#662d91,
+		#4b0082,
+		#845ec2,
+		#33006f
+	);
+}
+
+.back {
+	position: absolute;
+
+	z-index: -100;
+	height: 100vh;
+	width: 100vw;
+	background: #ddd;
+	background-image: var(--gradient);
+	background-size: 400%;
+	animation: bg-animation 20s infinite alternate;
+	-webkit-backdrop-filter: blur(5px);
+	backdrop-filter: blur(5px);
+}
+
+@keyframes bg-animation {
+	0% {
+		background-position: left;
+	}
+	100% {
+		background-position: right;
+	}
+}
