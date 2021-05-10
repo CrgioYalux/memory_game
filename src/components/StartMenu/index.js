@@ -9,11 +9,20 @@ const StartMenu = () => {
 			</div>
 			<div className="startmenu-options">
 				<div className="options-diffs">
-					<h3>Pick a difficulty</h3>
+					<h3>pick a difficulty</h3>
 					<div className="diffs-box">
-						<div className="diff-option">3X3</div>
-						<div className="diff-option">5X5</div>
-						<div className="diff-option">7X7</div>
+						<input type="checkbox" id="x3" />
+						<label htmlFor="x3" className="diff-option">
+							3x3
+						</label>
+						<input type="checkbox" id="x5" />
+						<label htmlFor="x5" className="diff-option">
+							5x5
+						</label>
+						<input type="checkbox" id="x7" />
+						<label htmlFor="x7" className="diff-option">
+							7x7
+						</label>
 					</div>
 				</div>
 				<div className="options-setts">

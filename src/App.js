@@ -18,4 +18,6 @@ const App = () => {
 	);
 };
 
+// Use a context for the lang and background style
+
 export default App;
