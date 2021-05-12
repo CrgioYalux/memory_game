@@ -10,7 +10,7 @@ const App = () => {
 			<BrowserRouter>
 				<Redirect from="/" to="/start" />
 				<Switch>
-					<Route path="/start" exact render={StartMenu} />
+					<Route path="/start" exact render={() => <StartMenu />} />
 					{/* <Route path="/projects" exact render={} /> */}
 				</Switch>
 			</BrowserRouter>

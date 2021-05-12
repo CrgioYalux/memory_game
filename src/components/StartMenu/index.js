@@ -1,6 +1,13 @@
 import './StartMenu.css';
+import { useState } from 'react';
 
 const StartMenu = () => {
+	const [diff, setDiff] = useState(null);
+
+	const changeDiff = (selected) => {
+		diff !== selected && setDiff(selected);
+	};
+
 	return (
 		<div className="startmenu">
 			<div className="startmenu-header">
@@ -10,20 +17,32 @@ const StartMenu = () => {
 			<div className="startmenu-options">
 				<div className="options-diffs">
 					<h3>pick a difficulty</h3>
-					<div className="diffs-box">
-						<input type="checkbox" id="x3" />
-						<label htmlFor="x3" className="diff-option">
+					<form className="diffs-box">
+						<input type="radio" name="diff" value="x3" id="x3" />
+						<label
+							htmlFor="x3"
+							className="diff-option"
+							onClick={() => changeDiff('x3')}
+						>
 							3x3
 						</label>
-						<input type="checkbox" id="x5" />
-						<label htmlFor="x5" className="diff-option">
+						<input type="radio" name="diff" value="x5" id="x5" />
+						<label
+							htmlFor="x5"
+							className="diff-option"
+							onClick={() => changeDiff('x5')}
+						>
 							5x5
 						</label>
-						<input type="checkbox" id="x7" />
-						<label htmlFor="x7" className="diff-option">
+						<input type="radio" name="diff" value="x7" id="x7" />
+						<label
+							htmlFor="x7"
+							className="diff-option"
+							onClick={() => changeDiff('x7')}
+						>
 							7x7
 						</label>
-					</div>
+					</form>
 				</div>
 				<div className="options-setts">
 					<h3>settings</h3>
