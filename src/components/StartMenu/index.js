@@ -1,11 +1,14 @@
 import './StartMenu.css';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { OptionsContext } from '../../hooks/OptionsContext';
 
 const StartMenu = () => {
 	const [diff, setDiff] = useState(null);
+	const { options, setOptions } = useContext(OptionsContext);
 
 	const changeDiff = (selected) => {
 		diff !== selected && setDiff(selected);
+		console.log(options);
 	};
 
 	return (
