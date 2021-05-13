@@ -1,15 +1,23 @@
 import './StartMenu.css';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { OptionsContext } from '../../hooks/OptionsContext';
 
 const StartMenu = () => {
 	const [diff, setDiff] = useState(null);
+	const [BGVisibility, setBGVisibility] = useState(true);
 	const { options, setOptions } = useContext(OptionsContext);
 
 	const changeDiff = (selected) => {
 		diff !== selected && setDiff(selected);
-		console.log(options);
 	};
+
+	useEffect(() => {
+		setOptions({
+			background: BGVisibility,
+			difficulty: null,
+			language: 'english',
+		});
+	}, [BGVisibility, setOptions]);
 
 	return (
 		<div className="startmenu">
@@ -50,7 +58,14 @@ const StartMenu = () => {
 				<div className="options-setts">
 					<h3>settings</h3>
 					<div className="setts-box">
-						<div className="sett-option">Turn off background</div>
+						<input type="checkbox" id="background-switch" />
+						<label
+							htmlFor="background-switch"
+							className="sett-option"
+							onClick={() => setBGVisibility((c) => !c)}
+						>
+							{BGVisibility ? 'Turn off background' : 'Turn on background'}
+						</label>
 						<div className="sett-option">Languages</div>
 					</div>
 				</div>

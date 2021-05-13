@@ -43,12 +43,14 @@
 	align-items: center;
 	justify-content: space-around;
 
-	background: #161616c7;
-	box-shadow: 0 8px 32px 0 rgba(62, 75, 255, 0.2);
+	background: #0c0c0c6e;
+	box-shadow: 0 8px 62px 0 rgba(62, 75, 255, 0.2);
 	backdrop-filter: blur(20px);
 	-webkit-backdrop-filter: blur(20px);
 
 	color: white;
+
+	border-radius: 9px;
 }
 
 .diffs-box {
@@ -90,12 +92,13 @@
 	align-items: center;
 	justify-content: space-around;
 
-	background: #303030be;
-	box-shadow: 0 8px 32px 0 rgba(62, 75, 255, 0.2);
+	background: #3030306b;
+	box-shadow: 0 8px 62px 0 rgba(62, 75, 255, 0.2);
 	backdrop-filter: blur(20px);
 	-webkit-backdrop-filter: blur(20px);
 
 	color: white;
+	border-radius: 9px;
 }
 
 .setts-box {
@@ -138,7 +141,8 @@
 
 #x3,
 #x5,
-#x7 {
+#x7,
+#background-switch {
 	display: none;
 }
 
@@ -153,3 +157,7 @@
 #x7:checked ~ label[for='x7'] {
 	background-color: red;
 }
+
+/* #background-switch:checked ~ label[for='background-switch'] {
+	background-color: red;
+} */

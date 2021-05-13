@@ -10,7 +10,7 @@
 	);
 }
 
-.back {
+.back-moving {
 	position: absolute;
 
 	z-index: -100;
@@ -31,4 +31,12 @@
 	100% {
 		background-position: right;
 	}
+}
+
+.back-not-moving {
+	position: absolute;
+	z-index: -100;
+	height: 100vh;
+	width: 100vw;
+	background: rgb(24, 23, 23);
 }

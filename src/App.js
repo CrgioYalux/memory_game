@@ -14,7 +14,7 @@ const App = () => {
 	return (
 		<>
 			<OptionsContext.Provider value={{ options, setOptions }}>
-				<Background />
+				<Background display={options.background} />
 				<BrowserRouter>
 					<Redirect from="/" to="/start" />
 					<Switch>
