@@ -75,9 +75,11 @@ const StartMenu = () => {
 						</div>
 					</div>
 				</div>
-				<Link to="/game" className="startmenu-bt">
-					Go!
-				</Link>
+				{diff ? (
+					<Link to="/game" className="startmenu-bt">
+						Go!
+					</Link>
+				) : null}
 			</div>
 		</>
 	);

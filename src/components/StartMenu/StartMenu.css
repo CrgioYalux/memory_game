@@ -78,7 +78,7 @@
 
 	font-weight: 800;
 
-	border: 2px solid white;
+	border: 5px solid white;
 }
 
 /* other options */
@@ -130,12 +130,42 @@
 }
 
 .startmenu-bt {
+	position: relative;
 	color: white;
 	font-size: 2rem;
 	text-align: center;
 	width: 20%;
 	border: 2px solid white;
 	cursor: pointer;
+	text-decoration: none;
+}
+
+@media screen and (min-width: 600px) {
+	.startmenu-bt {
+		animation: shake 1.3s ease 0.2s infinite alternate-reverse;
+	}
+	@keyframes shake {
+		10%,
+		90% {
+			transform: translate3d(-1px, 0, 0);
+		}
+
+		20%,
+		80% {
+			transform: translate3d(2px, 0, 0);
+		}
+
+		30%,
+		50%,
+		70% {
+			transform: translate3d(-4px, 0, 0);
+		}
+
+		40%,
+		60% {
+			transform: translate3d(4px, 0, 0);
+		}
+	}
 }
 
 #x3,
@@ -146,15 +176,15 @@
 }
 
 #x3:checked ~ label[for='x3'] {
-	background-color: red;
+	background-color: rgb(125, 220, 30);
 }
 
 #x5:checked ~ label[for='x5'] {
-	background-color: red;
+	background-color: rgb(255, 174, 0);
 }
 
 #x7:checked ~ label[for='x7'] {
-	background-color: red;
+	background-color: rgb(206, 47, 29);
 }
 
 /* #background-switch:checked ~ label[for='background-switch'] {
