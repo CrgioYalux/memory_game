@@ -14,10 +14,10 @@ const StartMenu = () => {
 	useEffect(() => {
 		setOptions({
 			background: BGVisibility,
-			difficulty: null,
+			difficulty: diff,
 			language: 'english',
 		});
-	}, [BGVisibility, setOptions]);
+	}, [diff, BGVisibility, setOptions]);
 
 	return (
 		<>
@@ -38,7 +38,7 @@ const StartMenu = () => {
 							<label
 								htmlFor="x3"
 								className="diff-option"
-								onClick={() => changeDiff('x3')}
+								onClick={() => changeDiff(3)}
 							>
 								3x3
 							</label>
@@ -46,7 +46,7 @@ const StartMenu = () => {
 							<label
 								htmlFor="x5"
 								className="diff-option"
-								onClick={() => changeDiff('x5')}
+								onClick={() => changeDiff(5)}
 							>
 								5x5
 							</label>
@@ -54,7 +54,7 @@ const StartMenu = () => {
 							<label
 								htmlFor="x7"
 								className="diff-option"
-								onClick={() => changeDiff('x7')}
+								onClick={() => changeDiff(7)}
 							>
 								7x7
 							</label>

@@ -1,15 +1,14 @@
 import './Game.css';
-import { useEffect } from 'react';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { OptionsContext } from '../../hooks/OptionsContext';
+import Board from '../Board';
 
 const Game = () => {
 	const { options, setOptions } = useContext(OptionsContext);
-
 	return (
 		<>
-			<div>
-				<h3>the gamme</h3>
+			<div className="game">
+				<Board options={options} />
 			</div>
 		</>
 	);
