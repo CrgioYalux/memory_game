@@ -20,8 +20,7 @@
 .startmenu-header h6 {
 	font-size: 0.6em;
 	font-weight: 800;
-	color: rgb(0, 0, 0);
-	text-decoration: 3px line-through black;
+	text-decoration: 3px line-through currentColor;
 }
 
 .startmenu-options {
@@ -161,3 +160,10 @@
 /* #background-switch:checked ~ label[for='background-switch'] {
 	background-color: red;
 } */
+
+.light-text {
+	color: rgb(49, 59, 201);
+}
+.dark-text {
+	color: black;
+}

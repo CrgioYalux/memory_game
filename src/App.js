@@ -1,6 +1,7 @@
-import Background from './components/Background';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import StartMenu from './components/StartMenu';
+import Game from './components/Game';
+import Background from './components/Background';
 import { OptionsContext } from './hooks/OptionsContext';
 import { useState } from 'react';
 import './App.css';
@@ -11,17 +12,22 @@ const App = () => {
 		difficulty: null,
 		language: 'english',
 	});
+
 	return (
 		<>
-			<OptionsContext.Provider value={{ options, setOptions }}>
-				<Background display={options.background} />
-				<BrowserRouter>
-					<Redirect from="/" to="/start" />
+			<Router>
+				<OptionsContext.Provider value={{ options, setOptions, Link }}>
+					<Background display={options.background} />
 					<Switch>
-						<Route path="/start" exact render={() => <StartMenu />} />
+						<Route exact path="/">
+							<StartMenu />
+						</Route>
+						<Route path="/game">
+							<Game />
+						</Route>
 					</Switch>
-				</BrowserRouter>
-			</OptionsContext.Provider>
+				</OptionsContext.Provider>
+			</Router>
 		</>
 	);
 };
