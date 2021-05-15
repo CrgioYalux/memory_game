@@ -1,24 +1,29 @@
-.board {
+.boardx3,
+.boardx5,
+.boardx7 {
 	width: 80vw;
 	height: 80vw;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	display: grid;
 	border: 1px solid white;
 	border-radius: 9px;
 }
 
-.rows {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
+.boardx3 {
+	grid-template-columns: repeat(3, auto);
+	grid-template-rows: repeat(3, auto);
 }
 
+.boardx5 {
+	grid-template-columns: repeat(5, auto);
+	grid-template-rows: repeat(5, auto);
+}
+
+.boardx7 {
+	grid-template-columns: repeat(7, auto);
+	grid-template-rows: repeat(7, auto);
+}
 .element {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	display: grid;
@@ -33,6 +38,26 @@
 	cursor: pointer;
 }
 
-.element:hover {
-	background-color: rgba(134, 24, 24, 0.323);
+@media screen and (min-width: 600px) {
+	.element:hover {
+		background-color: rgba(134, 24, 24, 0.323);
+	}
+}
+
+.element-checkbox {
+	display: none;
+}
+
+.element::after {
+	position: absolute;
+	content: '';
+	background-color: brown;
+	width: 50%;
+	height: 50%;
+	border-radius: 50%;
+	opacity: 0;
+}
+
+.element-checkbox:checked + .element::after {
+	opacity: 0.5;
 }

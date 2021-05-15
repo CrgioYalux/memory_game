@@ -1,4 +1,5 @@
 import './Board.css';
+import { useState } from 'react';
 
 const createBoard = (size) => {
 	return [...Array(size).keys()].map(() =>
@@ -7,18 +8,32 @@ const createBoard = (size) => {
 };
 
 const Board = ({ options }) => {
-	const board = createBoard(options.difficulty);
+	const [actives, setActives] = useState(null);
+	// const board = createBoard(options.difficulty);
+	const board = [...Array(options.difficulty ** 2).keys()].map((i) => i + 1);
+
 	return (
-		<div className="board">
-			{board.map((row, idr) => (
+		<div className={`boardx${options.difficulty}`}>
+			{board.map((el, id) => (
+				<>
+					<input type="checkbox" id={`el-${el}`} className="element-checkbox" />
+					<label htmlFor={`el-${el}`} className="element">
+						{el}
+					</label>
+				</>
+			))}
+			{/* {board.map((row, idr) => (
 				<div key={idr} className="rows">
 					{row.map((column, idel) => (
-						<div key={idel} className="element">
-							{column}
-						</div>
+						<>
+							<input type="checkbox" id="element" />
+							<label key={idel} className="element" htmlFor="element">
+								{column}
+							</label>
+						</>
 					))}
 				</div>
-			))}
+			))} */}
 		</div>
 	);
 };
