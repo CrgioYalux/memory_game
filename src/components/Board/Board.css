@@ -38,16 +38,6 @@
 	cursor: pointer;
 }
 
-@media screen and (min-width: 600px) {
-	.element:hover {
-		background-color: rgba(134, 24, 24, 0.323);
-	}
-}
-
-.element-checkbox {
-	display: none;
-}
-
 .element::after {
 	position: absolute;
 	content: '';
@@ -56,6 +46,27 @@
 	height: 50%;
 	border-radius: 50%;
 	opacity: 0;
+}
+
+.element::before {
+	position: absolute;
+	content: '';
+	background-color: brown;
+	width: 75%;
+	height: 75%;
+	border-radius: 50%;
+	opacity: 0;
+}
+
+@media screen and (min-width: 600px) {
+	.element:hover .element::before {
+		opacity: 0.5;
+		background-color: rgba(211, 23, 23, 0.323);
+	}
+}
+
+.element-checkbox {
+	display: none;
 }
 
 .element-checkbox:checked + .element::after {
