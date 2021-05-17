@@ -8,12 +8,12 @@ const Game = () => {
 
 	useEffect(() => {
 		if (options.difficulty === null) window.location.href = '/';
-	}, [options]);
+	}, [options.difficulty]);
 
 	return (
 		<>
 			<div className="game">
-				<Board options={options} />
+				{options.difficulty ? <Board options={options} /> : null}
 			</div>
 		</>
 	);

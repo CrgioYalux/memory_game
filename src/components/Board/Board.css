@@ -36,6 +36,7 @@
 
 	user-select: none;
 	cursor: pointer;
+	border: 1px solid white;
 }
 
 .element::after {
