@@ -8,50 +8,61 @@ import {
 
 const Board = ({ options }) => {
 	const [actives, setActives] = useState([]);
-	// const board = [...Array(options.difficulty ** 2).keys()].map((i) => i + 1);
+	const [completed, setCompleted] = useState([]);
 
 	const addToActives = (id) => {
 		setActives((c) => [...c, id]);
 	};
 
+	const labels = characterRange(
+		'A',
+		getCharFromInt((options.difficulty ** 2 - 1) / 2),
+	);
+
 	const board = useRef(
-		shuffleArray([
-			...characterRange('A', getCharFromInt((options.difficulty ** 2 - 1) / 2)),
-			...characterRange('A', getCharFromInt((options.difficulty ** 2 - 1) / 2)),
-			'!',
-		]),
+		shuffleArray(
+			[...labels, ...labels, '!'].reduce(
+				(acc, arr) => [...acc, { value: arr, state: false }],
+				[],
+			),
+		),
 	);
 
 	useEffect(() => {
-		actives.length === 2 && setActives([]);
+		console.log(`actives : ${actives}`);
+		if (actives.length === 2) {
+			if (board.current[actives[0]].value === board.current[actives[1]].value)
+				setCompleted((c) => [...c, board.current[actives[0]].value]);
+			setActives([]);
+		}
+		return () => {};
 	}, [actives]);
+
+	useEffect(() => {
+		console.log(`completed : ${completed}`);
+	}, [completed]);
 
 	return (
 		<div className={`boardx${options.difficulty}`}>
-			{board.current.map((el, id) => (
+			{board.current.map(({ value, state }, id) => (
 				<Fragment key={id}>
-					<input type="checkbox" id={`el-${id}`} className="element-checkbox" />
+					<input
+						type="checkbox"
+						id={`el-${id}`}
+						className="element-checkbox"
+						value={`el-${id}`}
+						readOnly={false}
+						data-state={state}
+					/>
 					<label
 						htmlFor={`el-${id}`}
 						className="element"
 						onClick={() => addToActives(id)}
 					>
-						{el}
+						{value}
 					</label>
 				</Fragment>
 			))}
-			{/* {board.map((row, idr) => (
-				<div key={idr} className="rows">
-					{row.map((column, idel) => (
-						<>
-							<input type="checkbox" id="element" />
-							<label key={idel} className="element" htmlFor="element">
-								{column}
-							</label>
-						</>
-					))}
-				</div>
-			))} */}
 		</div>
 	);
 };

@@ -31,3 +31,11 @@ export const shuffleArray = (array) => {
 
 	return array;
 };
+
+// const board = useRef(
+// 	shuffleArray([
+// 		...characterRange('A', getCharFromInt((options.difficulty ** 2 - 1) / 2)),
+// 		...characterRange('A', getCharFromInt((options.difficulty ** 2 - 1) / 2)),
+// 		'!',
+// 	]),
+// );
