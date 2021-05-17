@@ -39,3 +39,17 @@ export const shuffleArray = (array) => {
 // 		'!',
 // 	]),
 // );
+
+// const labels = characterRange(
+// 	'A',
+// 	getCharFromInt((options.difficulty ** 2 - 1) / 2),
+// );
+
+// const board = useRef(
+// 	shuffleArray(
+// 		[...labels, ...labels, '!'].reduce(
+// 			(acc, arr, idx) => [...acc, { value: arr, state: false, id: idx }],
+// 			[],
+// 		),
+// 	),
+// );
