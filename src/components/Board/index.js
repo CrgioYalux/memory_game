@@ -1,10 +1,6 @@
 import './Board.css';
 import { useEffect, useState, Fragment, useReducer } from 'react';
-import {
-	characterRange,
-	getCharFromInt,
-	shuffleArray,
-} from '../../helpers/Ranges';
+import { createBoard } from '../../helpers/BoardUtilities';
 
 const boardReducer = (state, action) => {
 	switch (action.type) {
@@ -31,20 +27,8 @@ const Board = ({ options }) => {
 	const [actives, setActives] = useState([]);
 	const [completed, setCompleted] = useState([]);
 
-	const labels = characterRange(
-		'A',
-		getCharFromInt((options.difficulty ** 2 - 1) / 2),
-	);
-
 	const [{ board }, dispatch] = useReducer(boardReducer, {
-		board: [
-			...shuffleArray(
-				[...labels, ...labels, '!'].reduce(
-					(acc, arr, idx) => [...acc, { value: arr, state: false, id: idx }],
-					[],
-				),
-			),
-		],
+		board: createBoard(options.difficulty),
 	});
 
 	const addToActives = (id, idx) => {

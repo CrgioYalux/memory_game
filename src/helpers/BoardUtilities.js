@@ -32,24 +32,15 @@ export const shuffleArray = (array) => {
 	return array;
 };
 
-// const board = useRef(
-// 	shuffleArray([
-// 		...characterRange('A', getCharFromInt((options.difficulty ** 2 - 1) / 2)),
-// 		...characterRange('A', getCharFromInt((options.difficulty ** 2 - 1) / 2)),
-// 		'!',
-// 	]),
-// );
+export const createBoard = (size) => {
+	const labels = characterRange('A', getCharFromInt((size ** 2 - 1) / 2));
 
-// const labels = characterRange(
-// 	'A',
-// 	getCharFromInt((options.difficulty ** 2 - 1) / 2),
-// );
-
-// const board = useRef(
-// 	shuffleArray(
-// 		[...labels, ...labels, '!'].reduce(
-// 			(acc, arr, idx) => [...acc, { value: arr, state: false, id: idx }],
-// 			[],
-// 		),
-// 	),
-// );
+	return [
+		...shuffleArray(
+			[...labels, ...labels, '!'].reduce(
+				(acc, arr, idx) => [...acc, { value: arr, state: false, id: idx }],
+				[],
+			),
+		),
+	];
+};
