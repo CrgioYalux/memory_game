@@ -12,7 +12,7 @@ const Board = ({ options }) => {
 
 	const addToActives = (id, idx) => {
 		if (board[idx].value === '!') {
-			// dispatch({ type: 'restart', difficulty: options.difficulty });
+			dispatch({ type: 'restart', difficulty: options.difficulty });
 			setCompleted([]);
 			setActives([]);
 		} else {
@@ -52,12 +52,12 @@ const Board = ({ options }) => {
 
 	return (
 		<div className={`boardx${options.difficulty}`}>
-			{board.map(({ value, selected, id }, idx) => (
+			{board.map(({ value, selected, id, paired }, idx) => (
 				<Fragment key={id}>
 					<input
 						type="checkbox"
 						id={`el-${id}`}
-						className="element-checkbox"
+						className={'element-checkbox'}
 						value={`el-${id}`}
 						readOnly={selected}
 						checked={selected}
@@ -65,7 +65,7 @@ const Board = ({ options }) => {
 					/>
 					<label
 						htmlFor={`el-${id}`}
-						className="element"
+						className={['element', paired ? 'paired' : 'not-paired'].join(' ')}
 						onClick={() => addToActives(id, idx)}
 					>
 						{value}
