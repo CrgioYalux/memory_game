@@ -24,10 +24,10 @@ const StartMenu = () => {
 			<div className="startmenu">
 				<div className="startmenu-header">
 					<h1 className={BGVisibility ? 'dark-text' : 'light-text'}>
-						Welcome to the hardest memory game
+						the hardest memory game
 					</h1>
 					<h6 className={BGVisibility ? 'dark-text' : 'light-text'}>
-						(  not even close  )
+						  not even close  
 					</h6>
 				</div>
 				<div className="startmenu-options">

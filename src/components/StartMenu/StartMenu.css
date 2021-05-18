@@ -8,8 +8,7 @@
 }
 
 .startmenu-header {
-	font-size: 2rem;
-	font-weight: 800;
+	font-size: 1.8rem;
 	text-align: center;
 }
 
@@ -20,7 +19,7 @@
 .startmenu-header h6 {
 	font-size: 0.6em;
 	font-weight: 800;
-	text-decoration: 3px line-through currentColor;
+	text-decoration: 5px solid line-through rgba(255, 0, 0, 0.6);
 }
 
 .startmenu-options {
@@ -176,15 +175,15 @@
 }
 
 #x3:checked ~ label[for='x3'] {
-	background-color: rgb(125, 220, 30);
+	background-color: rgba(125, 200, 30, 0.8);
 }
 
 #x5:checked ~ label[for='x5'] {
-	background-color: rgb(255, 174, 0);
+	background-color: rgba(250, 150, 0, 0.8);
 }
 
 #x7:checked ~ label[for='x7'] {
-	background-color: rgb(206, 47, 29);
+	background-color: rgba(206, 47, 29, 0.8);
 }
 
 /* #background-switch:checked ~ label[for='background-switch'] {
@@ -196,4 +195,13 @@
 }
 .dark-text {
 	color: black;
+}
+
+@media screen and (min-width: 1280px) {
+	.startmenu-header {
+		font-size: 2.4rem;
+	}
+	.startmenu-options {
+		width: 50vw;
+	}
 }
