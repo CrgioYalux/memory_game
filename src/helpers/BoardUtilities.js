@@ -38,7 +38,10 @@ export const createBoard = (size) => {
 	return [
 		...shuffleArray(
 			[...labels, ...labels, '!'].reduce(
-				(acc, arr, idx) => [...acc, { value: arr, state: false, id: idx }],
+				(acc, arr, idx) => [
+					...acc,
+					{ value: arr, state: false, id: idx, paired: false },
+				],
 				[],
 			),
 		),

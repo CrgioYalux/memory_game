@@ -11,10 +11,23 @@ const boardReducer = (state, action) => {
 					return [...acc, arr];
 				}, []),
 			};
-		case 'restart':
+		case 'clean':
 			return {
 				board: state.board.reduce((acc, arr) => {
-					arr.state = false;
+					if (!arr.paired) arr.state = false;
+					return [...acc, arr];
+				}, []),
+			};
+		case 'restart':
+			return {
+				board: createBoard(action.difficulty),
+			};
+		case 'update':
+			return {
+				board: state.board.reduce((acc, arr) => {
+					action.completed.map((i) => {
+						if (arr.value === i) arr.paired = true;
+					});
 					return [...acc, arr];
 				}, []),
 			};
@@ -34,7 +47,9 @@ const Board = ({ options }) => {
 	const addToActives = (id, idx) => {
 		console.log(board[idx].value);
 		if (board[idx].value === '!') {
-			dispatch({ type: 'restart' });
+			// dispatch({ type: 'clean' });
+			// dispatch({ type: 'restart', difficulty: options.difficulty });
+			setCompleted([]);
 			setActives([]);
 		} else {
 			setActives((c) => [...c, idx]);
@@ -43,13 +58,27 @@ const Board = ({ options }) => {
 	};
 
 	useEffect(() => {
-		console.log(`actives : ${actives}`);
 		if (actives.length === 2) {
 			if (board[actives[0]].value === board[actives[1]].value)
 				setCompleted((c) => [...c, board[actives[0]].value]);
+			else dispatch({ type: 'clean' });
 			setActives([]);
 		}
 	}, [actives, board]);
+
+	useEffect(() => {
+		dispatch({ type: 'update', completed });
+	}, [completed]);
+
+	// logs
+
+	useEffect(() => {
+		console.log(`actives : ${actives}`);
+	}, [actives]);
+
+	useEffect(() => {
+		console.log(board);
+	}, [board]);
 
 	useEffect(() => {
 		console.log(`completed : ${completed}`);
