@@ -63,7 +63,7 @@ const Board = ({ options }) => {
 	// LOGS - E
 
 	return (
-		<div className={`boardx${options.difficulty}`}>
+		<div className={`board boardx${options.difficulty}`}>
 			{board.map(({ value, selected, id, paired, position }, idx) => (
 				<Fragment key={id}>
 					<input
