@@ -1,6 +1,10 @@
 import './Board.css';
 import { useEffect, useState, Fragment, useReducer } from 'react';
-import { boardCreator, boardReducer } from '../../helpers/BoardUtilities';
+import {
+	boardCreator,
+	boardReducer,
+	addClassToBorder,
+} from '../../helpers/BoardUtilities';
 
 const Board = ({ options }) => {
 	const [actives, setActives] = useState([]);
@@ -36,23 +40,23 @@ const Board = ({ options }) => {
 
 	// LOGS - S
 
-	useEffect(() => {
-		console.log(`actives : ${actives}`);
-	}, [actives]);
+	// useEffect(() => {
+	// 	console.log(`actives : ${actives}`);
+	// }, [actives]);
 
-	useEffect(() => {
-		console.log(board);
-	}, [board]);
+	// useEffect(() => {
+	// 	console.log(board);
+	// }, [board]);
 
-	useEffect(() => {
-		console.log(`completed : ${completed}`);
-	}, [completed]);
+	// useEffect(() => {
+	// 	console.log(`completed : ${completed}`);
+	// }, [completed]);
 
 	// LOGS - E
 
 	return (
 		<div className={`boardx${options.difficulty}`}>
-			{board.map(({ value, selected, id, paired }, idx) => (
+			{board.map(({ value, selected, id, paired, position }, idx) => (
 				<Fragment key={id}>
 					<input
 						type="checkbox"
@@ -65,7 +69,11 @@ const Board = ({ options }) => {
 					/>
 					<label
 						htmlFor={`el-${id}`}
-						className={['element', paired ? 'paired' : 'not-paired'].join(' ')}
+						className={[
+							'element',
+							paired ? 'paired' : 'not-paired',
+							addClassToBorder(position.x, position.y, options.difficulty),
+						].join(' ')}
 						onClick={() => addToActives(id, idx)}
 					>
 						{value}

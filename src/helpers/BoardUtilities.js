@@ -3,17 +3,33 @@ import { characterRange, getCharFromInt, shuffleArray } from './ArrayUtilities';
 export const boardCreator = (size) => {
 	const labels = characterRange('A', getCharFromInt((size ** 2 - 1) / 2));
 
-	return [
-		...shuffleArray(
-			[...labels, ...labels, '!'].reduce(
-				(acc, arr, idx) => [
-					...acc,
-					{ value: arr, selected: false, id: idx, paired: false },
-				],
-				[],
-			),
-		),
-	];
+	let x = 0;
+	let y = 0;
+
+	const preBoard = shuffleArray(
+		[...labels, ...labels, '!'].reduce((acc, arr, idx) => {
+			return [
+				...acc,
+				{
+					value: arr,
+					selected: false,
+					id: idx,
+					paired: false,
+				},
+			];
+		}, []),
+	);
+
+	return preBoard.reduce((acc, arr, idx) => {
+		if (idx !== 0) {
+			x++;
+			if (x > size - 1) {
+				x = 0;
+				y++;
+			}
+		}
+		return [...acc, { ...arr, position: { x, y } }];
+	}, []);
 };
 
 export const boardReducer = (state, action) => {
@@ -49,3 +65,29 @@ export const boardReducer = (state, action) => {
 			return;
 	}
 };
+
+export const addClassToBorder = (x, y, size) => {
+	let styles = [];
+	if (x === 0) styles = [...styles, 'border-left'];
+	if (y === 0) styles = [...styles, 'border-top'];
+	if (x === size - 1) styles = [...styles, 'border-right'];
+	if (y === size - 1) styles = [...styles, 'border-bottom'];
+	return styles.join(' ');
+};
+
+// don't look i'm legacy code since 2 min ago!
+// return [
+// 	...shuffleArray(
+// 		[...labels, ...labels, '!'].reduce((acc, arr, idx) => {
+// 			return [
+// 				...acc,
+// 				{
+// 					value: arr,
+// 					selected: false,
+// 					id: idx,
+// 					paired: false,
+// 				},
+// 			];
+// 		}, []),
+// 	),
+// ];
