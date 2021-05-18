@@ -1,38 +1,6 @@
-export const range = (size, startAt = 0) => {
-	return [...Array(size).keys()].map((i) => i + startAt);
-};
+import { characterRange, getCharFromInt, shuffleArray } from './ArrayUtilities';
 
-export const characterRange = (startChar, endChar) => {
-	return String.fromCharCode(
-		...range(
-			endChar.charCodeAt(0) - startChar.charCodeAt(0),
-			startChar.charCodeAt(0),
-		),
-	);
-};
-
-export const getCharFromInt = (int) => {
-	return String.fromCharCode(int + 65);
-};
-
-export const shuffleArray = (array) => {
-	let currentIndex = array.length,
-		temporaryValue,
-		randomIndex;
-
-	while (0 !== currentIndex) {
-		randomIndex = Math.floor(Math.random() * currentIndex);
-		currentIndex -= 1;
-
-		temporaryValue = array[currentIndex];
-		array[currentIndex] = array[randomIndex];
-		array[randomIndex] = temporaryValue;
-	}
-
-	return array;
-};
-
-export const createBoard = (size) => {
+export const boardCreator = (size) => {
 	const labels = characterRange('A', getCharFromInt((size ** 2 - 1) / 2));
 
 	return [
@@ -40,10 +8,44 @@ export const createBoard = (size) => {
 			[...labels, ...labels, '!'].reduce(
 				(acc, arr, idx) => [
 					...acc,
-					{ value: arr, state: false, id: idx, paired: false },
+					{ value: arr, selected: false, id: idx, paired: false },
 				],
 				[],
 			),
 		),
 	];
+};
+
+export const boardReducer = (state, action) => {
+	switch (action.type) {
+		case 'select':
+			return {
+				board: state.board.reduce((acc, arr) => {
+					if (action.id === arr.id) arr.selected = true;
+					return [...acc, arr];
+				}, []),
+			};
+		case 'clean':
+			return {
+				board: state.board.reduce((acc, arr) => {
+					if (!arr.paired) arr.selected = false;
+					return [...acc, arr];
+				}, []),
+			};
+		case 'restart':
+			return {
+				board: boardCreator(action.difficulty),
+			};
+		case 'update':
+			return {
+				board: state.board.reduce((acc, arr) => {
+					action.completed.map((i) => {
+						if (arr.value === i) arr.paired = true;
+					});
+					return [...acc, arr];
+				}, []),
+			};
+		default:
+			return;
+	}
 };

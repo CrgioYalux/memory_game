@@ -1,59 +1,23 @@
 import './Board.css';
 import { useEffect, useState, Fragment, useReducer } from 'react';
-import { createBoard } from '../../helpers/BoardUtilities';
-
-const boardReducer = (state, action) => {
-	switch (action.type) {
-		case 'activate':
-			return {
-				board: state.board.reduce((acc, arr) => {
-					if (action.id === arr.id) arr.state = true;
-					return [...acc, arr];
-				}, []),
-			};
-		case 'clean':
-			return {
-				board: state.board.reduce((acc, arr) => {
-					if (!arr.paired) arr.state = false;
-					return [...acc, arr];
-				}, []),
-			};
-		case 'restart':
-			return {
-				board: createBoard(action.difficulty),
-			};
-		case 'update':
-			return {
-				board: state.board.reduce((acc, arr) => {
-					action.completed.map((i) => {
-						if (arr.value === i) arr.paired = true;
-					});
-					return [...acc, arr];
-				}, []),
-			};
-		default:
-			return;
-	}
-};
+import { boardCreator, boardReducer } from '../../helpers/BoardUtilities';
 
 const Board = ({ options }) => {
 	const [actives, setActives] = useState([]);
 	const [completed, setCompleted] = useState([]);
 
 	const [{ board }, dispatch] = useReducer(boardReducer, {
-		board: createBoard(options.difficulty),
+		board: boardCreator(options.difficulty),
 	});
 
 	const addToActives = (id, idx) => {
-		console.log(board[idx].value);
 		if (board[idx].value === '!') {
-			// dispatch({ type: 'clean' });
 			// dispatch({ type: 'restart', difficulty: options.difficulty });
 			setCompleted([]);
 			setActives([]);
 		} else {
 			setActives((c) => [...c, idx]);
-			dispatch({ type: 'activate', id });
+			dispatch({ type: 'select', id });
 		}
 	};
 
@@ -70,7 +34,7 @@ const Board = ({ options }) => {
 		dispatch({ type: 'update', completed });
 	}, [completed]);
 
-	// logs
+	// LOGS - S
 
 	useEffect(() => {
 		console.log(`actives : ${actives}`);
@@ -84,17 +48,19 @@ const Board = ({ options }) => {
 		console.log(`completed : ${completed}`);
 	}, [completed]);
 
+	// LOGS - E
+
 	return (
 		<div className={`boardx${options.difficulty}`}>
-			{board.map(({ value, state, id }, idx) => (
+			{board.map(({ value, selected, id }, idx) => (
 				<Fragment key={id}>
 					<input
 						type="checkbox"
 						id={`el-${id}`}
 						className="element-checkbox"
 						value={`el-${id}`}
-						readOnly={state}
-						checked={state}
+						readOnly={selected}
+						checked={selected}
 						onChange={() => {}}
 					/>
 					<label
