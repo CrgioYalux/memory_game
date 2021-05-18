@@ -15,6 +15,13 @@ const boardReducer = (state, action) => {
 					return [...acc, arr];
 				}, []),
 			};
+		case 'restart':
+			return {
+				board: state.board.reduce((acc, arr) => {
+					arr.state = false;
+					return [...acc, arr];
+				}, []),
+			};
 		default:
 			return;
 	}
@@ -40,9 +47,15 @@ const Board = ({ options }) => {
 		],
 	});
 
-	const addToActives = (id) => {
-		setActives((c) => [...c, id]);
-		dispatch({ type: 'activate', id });
+	const addToActives = (id, idx) => {
+		console.log(board[idx].value);
+		if (board[idx].value === '!') {
+			dispatch({ type: 'restart' });
+			setActives([]);
+		} else {
+			setActives((c) => [...c, idx]);
+			dispatch({ type: 'activate', id });
+		}
 	};
 
 	useEffect(() => {
@@ -60,7 +73,7 @@ const Board = ({ options }) => {
 
 	return (
 		<div className={`boardx${options.difficulty}`}>
-			{board.map(({ value, state, id }) => (
+			{board.map(({ value, state, id }, idx) => (
 				<Fragment key={id}>
 					<input
 						type="checkbox"
@@ -68,12 +81,13 @@ const Board = ({ options }) => {
 						className="element-checkbox"
 						value={`el-${id}`}
 						readOnly={state}
-						data-readonly={state}
+						checked={state}
+						onChange={() => {}}
 					/>
 					<label
 						htmlFor={`el-${id}`}
 						className="element"
-						onClick={() => addToActives(id)}
+						onClick={() => addToActives(id, idx)}
 					>
 						{value}
 					</label>
