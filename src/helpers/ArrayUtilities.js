@@ -2,6 +2,9 @@ export const range = (size, startAt = 0) => {
 	return [...Array(size).keys()].map((i) => i + startAt);
 };
 
+export const arrayOfLetters = (size) =>
+	characterRange('A', getCharFromInt((size ** 2 - 1) / 2));
+
 export const characterRange = (startChar, endChar) => {
 	return String.fromCharCode(
 		...range(

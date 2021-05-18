@@ -1,5 +1,5 @@
 import './Board.css';
-import { useEffect, useState, Fragment, useReducer } from 'react';
+import { useEffect, useState, Fragment, useReducer, useRef } from 'react';
 import {
 	boardCreator,
 	boardReducer,
@@ -14,12 +14,15 @@ const Board = ({ options }) => {
 		board: boardCreator(options.difficulty),
 	});
 
+	const restart = useRef(() => {
+		dispatch({ type: 'restart', difficulty: options.difficulty });
+		setCompleted([]);
+		setActives([]);
+	});
+
 	const addToActives = (id, idx) => {
-		if (board[idx].value === '!') {
-			dispatch({ type: 'restart', difficulty: options.difficulty });
-			setCompleted([]);
-			setActives([]);
-		} else {
+		if (board[idx].value === '!') restart.current();
+		else {
 			setActives((c) => [...c, idx]);
 			dispatch({ type: 'select', id });
 		}
@@ -37,6 +40,11 @@ const Board = ({ options }) => {
 	useEffect(() => {
 		dispatch({ type: 'update', completed });
 	}, [completed]);
+
+	useEffect(() => {
+		if (completed.length === (options.difficulty ** 2 - 1) / 2)
+			restart.current();
+	}, [completed, options.difficulty]);
 
 	// LOGS - S
 

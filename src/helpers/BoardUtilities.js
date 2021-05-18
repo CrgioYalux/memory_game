@@ -1,7 +1,7 @@
-import { characterRange, getCharFromInt, shuffleArray } from './ArrayUtilities';
+import { arrayOfLetters, shuffleArray } from './ArrayUtilities';
 
 export const boardCreator = (size) => {
-	const labels = characterRange('A', getCharFromInt((size ** 2 - 1) / 2));
+	const labels = arrayOfLetters(size);
 
 	let x = 0;
 	let y = 0;
