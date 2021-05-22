@@ -1,10 +1,10 @@
 import './Game.css';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useReducer } from 'react';
 import { OptionsContext } from '../../hooks/OptionsContext';
 import Board from '../Board';
 
 const Game = () => {
-	const { options, setOptions } = useContext(OptionsContext);
+	const { options, dispatchScore } = useContext(OptionsContext);
 
 	useEffect(() => {
 		if (options.difficulty === null) window.location.href = '/';
@@ -13,7 +13,9 @@ const Game = () => {
 	return (
 		<>
 			<div className="game">
-				{options.difficulty ? <Board options={options} /> : null}
+				{options.difficulty ? (
+					<Board options={options} dispatchScore={dispatchScore} />
+				) : null}
 			</div>
 		</>
 	);

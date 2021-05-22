@@ -6,25 +6,31 @@ import {
 	addClassToBorder,
 } from '../../helpers/BoardUtilities';
 
-const Board = ({ options }) => {
+const Board = ({ options, dispatchScore }) => {
 	const [actives, setActives] = useState([]);
 	const [completed, setCompleted] = useState([]);
 
-	const [{ board }, dispatch] = useReducer(boardReducer, {
+	const [{ board }, dispatchBoard] = useReducer(boardReducer, {
 		board: boardCreator(options.difficulty),
 	});
 
 	const restart = useRef(() => {
-		dispatch({ type: 'restart', difficulty: options.difficulty });
+		dispatchBoard({ type: 'restart', difficulty: options.difficulty });
 		setCompleted([]);
 		setActives([]);
 	});
 
 	const addToActives = (id, idx) => {
-		if (board[idx].value === '!') restart.current();
-		else {
+		if (board[idx].value === '!') {
+			restart.current();
+			dispatchScore({
+				type: 'lose',
+				difficulty: options.difficulty,
+				time: '0.5s',
+			});
+		} else {
 			setActives((c) => [...c, idx]);
-			dispatch({ type: 'select', id });
+			dispatchBoard({ type: 'select', id });
 		}
 	};
 
@@ -32,19 +38,25 @@ const Board = ({ options }) => {
 		if (actives.length === 2) {
 			if (board[actives[0]].value === board[actives[1]].value)
 				setCompleted((c) => [...c, board[actives[0]].value]);
-			else dispatch({ type: 'clean' });
+			else dispatchBoard({ type: 'clean' });
 			setActives([]);
 		}
 	}, [actives, board]);
 
 	useEffect(() => {
-		dispatch({ type: 'update', completed });
+		dispatchBoard({ type: 'update', completed });
 	}, [completed]);
 
 	useEffect(() => {
-		if (completed.length === (options.difficulty ** 2 - 1) / 2)
+		if (completed.length === (options.difficulty ** 2 - 1) / 2) {
+			dispatchScore({
+				type: 'win',
+				difficulty: options.difficulty,
+				time: '0.5s',
+			});
 			restart.current();
-	}, [completed, options.difficulty]);
+		}
+	}, [completed, options.difficulty, dispatchScore]);
 
 	// LOGS - S
 

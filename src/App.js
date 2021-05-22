@@ -3,7 +3,8 @@ import StartMenu from './components/StartMenu';
 import Game from './components/Game';
 import Background from './components/Background';
 import { OptionsContext } from './hooks/OptionsContext';
-import { useState } from 'react';
+import { useState, useReducer, useEffect } from 'react';
+import { scoreReducer } from './helpers/ScoreUtilities';
 import './App.css';
 
 const App = () => {
@@ -12,11 +13,23 @@ const App = () => {
 		difficulty: null,
 		language: 'english',
 	});
+	const [{ score }, dispatchScore] = useReducer(scoreReducer, {
+		score: {
+			wins: [],
+			loses: [],
+		},
+	});
+
+	useEffect(() => {
+		console.log(score);
+	}, [score]);
 
 	return (
 		<>
 			<Router>
-				<OptionsContext.Provider value={{ options, setOptions, Link }}>
+				<OptionsContext.Provider
+					value={{ options, setOptions, dispatchScore, Link }}
+				>
 					<Background display={options.background} />
 					<Switch>
 						<Route exact path="/">

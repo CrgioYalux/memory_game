@@ -62,7 +62,7 @@ export const boardReducer = (state, action) => {
 				}, []),
 			};
 		default:
-			return;
+			throw new Error();
 	}
 };
 
