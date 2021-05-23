@@ -8,6 +8,7 @@ import {
 
 const Board = ({ options, dispatchScore }) => {
 	const [actives, setActives] = useState([]);
+	const [time, setTime] = useState([Date.now()]);
 	const [completed, setCompleted] = useState([]);
 
 	const [{ board }, dispatchBoard] = useReducer(boardReducer, {
@@ -18,16 +19,17 @@ const Board = ({ options, dispatchScore }) => {
 		dispatchBoard({ type: 'restart', difficulty: options.difficulty });
 		setCompleted([]);
 		setActives([]);
+		setTime(Date.now());
 	});
 
 	const addToActives = (id, idx) => {
 		if (board[idx].value === '!') {
-			restart.current();
 			dispatchScore({
 				type: 'lose',
 				difficulty: options.difficulty,
-				time: '0.5s',
+				time: `${new Date(Date.now() - time).getSeconds()} seconds`,
 			});
+			restart.current();
 		} else {
 			setActives((c) => [...c, idx]);
 			dispatchBoard({ type: 'select', id });
@@ -52,11 +54,11 @@ const Board = ({ options, dispatchScore }) => {
 			dispatchScore({
 				type: 'win',
 				difficulty: options.difficulty,
-				time: '0.5s',
+				time: `${new Date(Date.now() - time).getSeconds()} seconds`,
 			});
 			restart.current();
 		}
-	}, [completed, options.difficulty, dispatchScore]);
+	}, [completed, options.difficulty, dispatchScore, time]);
 
 	// LOGS - S
 
