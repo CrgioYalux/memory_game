@@ -6,9 +6,11 @@ import {
 	addClassToBorder,
 } from '../../helpers/BoardUtilities';
 
+let wait = 1000;
+
 const Board = ({ options, dispatchScore }) => {
 	const [actives, setActives] = useState([]);
-	const [time, setTime] = useState([Date.now()]);
+	const [time, setTime] = useState(Date.now());
 	const [completed, setCompleted] = useState([]);
 
 	const [{ board }, dispatchBoard] = useReducer(boardReducer, {
@@ -27,7 +29,7 @@ const Board = ({ options, dispatchScore }) => {
 			dispatchScore({
 				type: 'lose',
 				difficulty: options.difficulty,
-				time: `${new Date(Date.now() - time).getSeconds()} seconds`,
+				time: new Date(Date.now() - time).getSeconds(),
 			});
 			restart.current();
 		} else {
@@ -37,48 +39,50 @@ const Board = ({ options, dispatchScore }) => {
 	};
 
 	useEffect(() => {
+		let error = setTimeout(() => {
+			dispatchBoard({ type: 'clean' });
+			actives.length !== 0 && setActives([]);
+		}, wait);
 		if (actives.length === 2) {
 			if (board[actives[0]].value === board[actives[1]].value)
 				setCompleted((c) => [...c, board[actives[0]].value]);
-			else dispatchBoard({ type: 'clean' });
 			setActives([]);
 		}
+		return () => {
+			clearTimeout(error);
+		};
 	}, [actives, board]);
 
 	useEffect(() => {
-		dispatchBoard({ type: 'update', completed });
+		let showPairs = setTimeout(() => {
+			dispatchBoard({ type: 'update', completed });
+		}, wait * 0.5);
+		return () => {
+			clearTimeout(showPairs);
+		};
 	}, [completed]);
 
 	useEffect(() => {
-		if (completed.length === (options.difficulty ** 2 - 1) / 2) {
+		const winCondition = completed.length === (options.difficulty ** 2 - 1) / 2;
+
+		let startNewGame = setTimeout(() => {
+			winCondition && restart.current();
+		}, wait * 0.5);
+
+		winCondition &&
 			dispatchScore({
 				type: 'win',
 				difficulty: options.difficulty,
-				time: `${new Date(Date.now() - time).getSeconds()} seconds`,
+				time: new Date(Date.now() - time).getSeconds(),
 			});
-			restart.current();
-		}
+		return () => {
+			winCondition && clearTimeout(startNewGame);
+		};
 	}, [completed, options.difficulty, dispatchScore, time]);
-
-	// LOGS - S
-
-	// useEffect(() => {
-	// 	console.log(`actives : ${actives}`);
-	// }, [actives]);
-
-	// useEffect(() => {
-	// 	console.log(board);
-	// }, [board]);
-
-	// useEffect(() => {
-	// 	console.log(`completed : ${completed}`);
-	// }, [completed]);
-
-	// LOGS - E
 
 	return (
 		<div className={`board boardx${options.difficulty}`}>
-			{board.map(({ value, selected, id, paired, position }, idx) => (
+			{board.map(({ value, selected, id, paired, position, hiding }, idx) => (
 				<Fragment key={id}>
 					<input
 						type="checkbox"
@@ -94,10 +98,12 @@ const Board = ({ options, dispatchScore }) => {
 						className={[
 							'element',
 							paired ? 'paired' : 'not-paired',
+							// hiding && value !== '!' ? 'hiding' : 'not-hiding',
 							addClassToBorder(position.x, position.y, options.difficulty),
 						].join(' ')}
 						onClick={() => addToActives(id, idx)}
 					>
+						{/* {!hiding ? value : '?'} */}
 						{value}
 					</label>
 				</Fragment>

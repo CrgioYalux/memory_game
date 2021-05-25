@@ -15,6 +15,7 @@ export const boardCreator = (size) => {
 					selected: false,
 					id: idx,
 					paired: false,
+					hiding: true,
 				},
 			];
 		}, []),
@@ -38,13 +39,17 @@ export const boardReducer = (state, action) => {
 			return {
 				board: state.board.reduce((acc, arr) => {
 					if (action.id === arr.id) arr.selected = true;
+					if (arr.hiding && action.id === arr.id) arr.hiding = false;
 					return [...acc, arr];
 				}, []),
 			};
 		case 'clean':
 			return {
 				board: state.board.reduce((acc, arr) => {
-					if (!arr.paired) arr.selected = false;
+					if (!arr.paired && !arr.hiding) {
+						arr.selected = false;
+						arr.hiding = true;
+					}
 					return [...acc, arr];
 				}, []),
 			};
@@ -56,11 +61,28 @@ export const boardReducer = (state, action) => {
 			return {
 				board: state.board.reduce((acc, arr) => {
 					action.completed.map((i) => {
-						if (arr.value === i) arr.paired = true;
+						if (arr.value === i) {
+							arr.paired = true;
+							arr.hiding = false;
+						}
 					});
 					return [...acc, arr];
 				}, []),
 			};
+		// case 'show':
+		// 	return {
+		// 		board: state.board.reduce((acc, arr) => {
+		// 			if (action.id === arr.id) arr.hiding = false;
+		// 			return [...acc, arr];
+		// 		}, []),
+		// 	};
+		// case 'hide':
+		// 	return {
+		// 		board: state.board.reduce((acc, arr) => {
+		// 			if (action.id === arr.id) arr.hiding = true;
+		// 			return [...acc, arr];
+		// 		}, []),
+		// 	};
 		default:
 			throw new Error();
 	}
