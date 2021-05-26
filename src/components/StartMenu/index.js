@@ -22,14 +22,14 @@ const StartMenu = () => {
 	return (
 		<>
 			<div className="startmenu">
-				<div className="startmenu-header">
+				{/* <div className="startmenu-header">
 					<h1 className={BGVisibility ? 'dark-text' : 'light-text'}>
 						the hardest memory game
 					</h1>
 					<h6 className={BGVisibility ? 'dark-text' : 'light-text'}>
 						  not even close  
 					</h6>
-				</div>
+				</div> */}
 				<div className="startmenu-options">
 					<div className="options-diffs">
 						<h3>pick a difficulty</h3>

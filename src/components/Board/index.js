@@ -98,18 +98,23 @@ const Board = ({ options, dispatchScore }) => {
 						className={[
 							'element',
 							paired ? 'paired' : 'not-paired',
-							// hiding && value !== '!' ? 'hiding' : 'not-hiding',
+							hiding ? 'hiding' : 'not-hiding',
 							addClassToBorder(position.x, position.y, options.difficulty),
 						].join(' ')}
 						onClick={() => addToActives(id, idx)}
 					>
-						{/* {!hiding ? value : '?'} */}
-						{value}
+						{!hiding ? value : '?'}
+						{/* {value} */}
 					</label>
 				</Fragment>
 			))}
 		</div>
 	);
 };
+
+// Ahora despues de seleccionar, check los completados y comenzar una nueva partida hay un timeout
+// Faltaria agregar timeouts para cuando se apreta el kill (???, y buscarle un mejor nombre) agregandole una animacion incluso
+// Finalmente faltaria poder mostrar cuantas W y L se llevan, incluso el tiempo por partida
+// En el menu faltaria una "base de datos" con las W y L y sus tiempos
 
 export default Board;
