@@ -6,15 +6,32 @@ import {
 	addClassToBorder,
 } from '../../helpers/BoardUtilities';
 
-let wait = 1000;
+const wait = 1000;
 
 const Board = ({ options, dispatchScore }) => {
 	const [actives, setActives] = useState([]);
 	const [time, setTime] = useState(Date.now());
 	const [completed, setCompleted] = useState([]);
+	const [restarted, setRestarted] = useState(true);
+
+	useEffect(() => {
+		console.log(wait);
+		console.log(options.difficulty);
+		console.log(wait * options.difficulty);
+	}, [options.difficulty]);
 
 	const [{ board }, dispatchBoard] = useReducer(boardReducer, {
 		board: boardCreator(options.difficulty),
+	});
+
+	const showthenhide = useRef(() => {
+		dispatchBoard({ type: 'show' });
+		const hide = setTimeout(() => {
+			dispatchBoard({ type: 'hide' });
+		}, wait * options.difficulty);
+		return () => {
+			clearTimeout(hide);
+		};
 	});
 
 	const restart = useRef(() => {
@@ -22,7 +39,13 @@ const Board = ({ options, dispatchScore }) => {
 		setCompleted([]);
 		setActives([]);
 		setTime(Date.now());
+		showthenhide.current();
+		setRestarted(true);
 	});
+
+	useEffect(() => {
+		showthenhide.current();
+	}, []);
 
 	const addToActives = (id, idx) => {
 		if (board[idx].value === '!') {
@@ -39,22 +62,27 @@ const Board = ({ options, dispatchScore }) => {
 	};
 
 	useEffect(() => {
-		let error = setTimeout(() => {
-			dispatchBoard({ type: 'clean' });
-			actives.length !== 0 && setActives([]);
-		}, wait);
+		const cleanBoard = !restarted
+			? setTimeout(() => {
+					dispatchBoard({ type: 'clean' });
+					setActives([]);
+			  }, wait)
+			: null;
+
 		if (actives.length === 2) {
 			if (board[actives[0]].value === board[actives[1]].value)
 				setCompleted((c) => [...c, board[actives[0]].value]);
 			setActives([]);
 		}
+		actives.length !== 0 && setRestarted(false);
+
 		return () => {
-			clearTimeout(error);
+			cleanBoard && clearTimeout(cleanBoard);
 		};
-	}, [actives, board]);
+	}, [actives, board, restarted]);
 
 	useEffect(() => {
-		let showPairs = setTimeout(() => {
+		const showPairs = setTimeout(() => {
 			dispatchBoard({ type: 'update', completed });
 		}, wait * 0.5);
 		return () => {
@@ -65,7 +93,7 @@ const Board = ({ options, dispatchScore }) => {
 	useEffect(() => {
 		const winCondition = completed.length === (options.difficulty ** 2 - 1) / 2;
 
-		let startNewGame = setTimeout(() => {
+		const startNewGame = setTimeout(() => {
 			winCondition && restart.current();
 		}, wait * 0.5);
 

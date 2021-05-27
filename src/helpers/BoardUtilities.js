@@ -69,20 +69,24 @@ export const boardReducer = (state, action) => {
 					return [...acc, arr];
 				}, []),
 			};
-		// case 'show':
-		// 	return {
-		// 		board: state.board.reduce((acc, arr) => {
-		// 			if (action.id === arr.id) arr.hiding = false;
-		// 			return [...acc, arr];
-		// 		}, []),
-		// 	};
-		// case 'hide':
-		// 	return {
-		// 		board: state.board.reduce((acc, arr) => {
-		// 			if (action.id === arr.id) arr.hiding = true;
-		// 			return [...acc, arr];
-		// 		}, []),
-		// 	};
+		case 'show':
+			return {
+				board: state.board.reduce((acc, arr) => {
+					arr.hiding = false;
+					arr.selected = true;
+					return [...acc, arr];
+				}, []),
+			};
+		case 'hide':
+			return {
+				board: state.board.reduce((acc, arr) => {
+					if (!arr.paired) {
+						arr.hiding = true;
+						arr.selected = false;
+					}
+					return [...acc, arr];
+				}, []),
+			};
 		default:
 			throw new Error();
 	}

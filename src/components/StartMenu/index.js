@@ -13,6 +13,10 @@ const StartMenu = () => {
 	};
 
 	useEffect(() => {
+		console.log(options);
+	}, [options]);
+
+	useEffect(() => {
 		setOptions({
 			background: BGVisibility,
 			difficulty: diff,
