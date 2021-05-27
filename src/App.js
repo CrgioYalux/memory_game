@@ -1,11 +1,12 @@
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { useState, useReducer, useMemo } from 'react';
 import StartMenu from './components/StartMenu';
 import Game from './components/Game';
 import Background from './components/Background';
-import GoBackBT from './components/GoBackBT';
 import { OptionsContext } from './hooks/OptionsContext';
-import { useState, useReducer, useEffect } from 'react';
 import { scoreReducer } from './helpers/ScoreUtilities';
+import GoBackBT from './components/GoBackBT';
+
 import './App.css';
 
 const App = () => {
@@ -22,25 +23,20 @@ const App = () => {
 		},
 	});
 
-	useEffect(() => {
-		console.log(score);
-	}, [score]);
+	const providerValue = useMemo(
+		() => ({ options, setOptions, dispatchScore }),
+		[options, setOptions],
+	);
 
 	return (
 		<>
 			<Router>
-				<OptionsContext.Provider
-					value={{ options, setOptions, dispatchScore, Link }}
-				>
-					<Background display={options.background} />
-					<GoBackBT />
+				<Background display={options.background} />
+				<GoBackBT />
+				<OptionsContext.Provider value={providerValue}>
 					<Switch>
-						<Route exact path="/">
-							<StartMenu />
-						</Route>
-						<Route path="/game">
-							<Game />
-						</Route>
+						<Route exact path="/" component={StartMenu} />
+						<Route path="/game" component={Game} />
 					</Switch>
 				</OptionsContext.Provider>
 			</Router>
@@ -48,6 +44,6 @@ const App = () => {
 	);
 };
 
-// Use a context for the lang and background style
+// gobackbt is working but background options (options in general) doesn't persist
 
 export default App;

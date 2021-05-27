@@ -1,11 +1,9 @@
 import './GoBackBT.css';
-import { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
-import { OptionsContext } from '../../hooks/OptionsContext';
+import { Link } from 'react-router-dom';
 
 const GoBackBT = () => {
 	const location = useLocation();
-	const { Link } = useContext(OptionsContext);
 
 	return (
 		location.pathname !== '/' && (

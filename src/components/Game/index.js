@@ -1,5 +1,5 @@
 import './Game.css';
-import { useContext, useEffect, useReducer } from 'react';
+import { useContext, useEffect } from 'react';
 import { OptionsContext } from '../../hooks/OptionsContext';
 import Board from '../Board';
 

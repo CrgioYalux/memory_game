@@ -1,11 +1,12 @@
 import './StartMenu.css';
 import { useState, useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { OptionsContext } from '../../hooks/OptionsContext';
 
 const StartMenu = () => {
 	const [diff, setDiff] = useState(null);
-	const [BGVisibility, setBGVisibility] = useState(true);
-	const { options, setOptions, Link } = useContext(OptionsContext);
+	const { options, setOptions } = useContext(OptionsContext);
+	const [BGVisibility, setBGVisibility] = useState(options.background);
 
 	const changeDiff = (selected) => {
 		diff !== selected && setDiff(selected);
@@ -22,14 +23,6 @@ const StartMenu = () => {
 	return (
 		<>
 			<div className="startmenu">
-				{/* <div className="startmenu-header">
-					<h1 className={BGVisibility ? 'dark-text' : 'light-text'}>
-						the hardest memory game
-					</h1>
-					<h6 className={BGVisibility ? 'dark-text' : 'light-text'}>
-						  not even close  
-					</h6>
-				</div> */}
 				<div className="startmenu-options">
 					<div className="options-diffs">
 						<h3>pick a difficulty</h3>
