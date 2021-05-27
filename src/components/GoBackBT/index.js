@@ -8,7 +8,7 @@ const GoBackBT = () => {
 	return (
 		location.pathname !== '/' && (
 			<Link to="/" className="GoBackBT">
-				{'<'}
+				<p>{'<'}</p>
 			</Link>
 		)
 	);
