@@ -8,7 +8,6 @@ import Stopwatch from '../Stopwatch';
 const Game = () => {
 	const { options, dispatchScore } = useContext(OptionsContext);
 	const [timerMode, setTimerMode] = useState(0);
-	const [time, setTime] = useState(options.difficulty);
 	const [usedTime, setUsedTime] = useState(null);
 	const StopwatchRef = useRef();
 	const [result, setResult] = useState(null);
@@ -66,9 +65,13 @@ const Game = () => {
 						<div className="game-container">
 							<Board options={options} handleWL={handleWL} />
 						</div>
-						<div className="timer-container">
-							{timerMode === 0 ? <Timer from={time} to={0} /> : null}
-							{timerMode === 1 ? <Stopwatch ref={StopwatchRef} /> : null}
+						<div className="game-info">
+							<div className="timer-container">
+								{timerMode === 0 ? (
+									<Timer from={options.difficulty} to={0} />
+								) : null}
+								{timerMode === 1 ? <Stopwatch ref={StopwatchRef} /> : null}
+							</div>
 						</div>
 					</>
 				) : null}

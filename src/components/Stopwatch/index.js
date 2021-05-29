@@ -36,11 +36,12 @@ const Stopwatch = forwardRef(({}, ref) => {
 
 	return (
 		<div className="Stopwatch">
-			<div className="Stopwatch-seconds">
-				{seconds < 10 ? `0${seconds}` : seconds}
-			</div>
 			<div className="Stopwatch-minutes">
 				{minutes < 10 ? `0${minutes}` : minutes}
+			</div>
+			:
+			<div className="Stopwatch-seconds">
+				{seconds < 10 ? `0${seconds}` : seconds}
 			</div>
 		</div>
 	);

@@ -20,6 +20,7 @@ const Timer = ({ from, to }) => {
 
 	return (
 		<div className="Timer">
+			<p> hiding in </p>
 			<div className="Timer-seconds">
 				{seconds < 10 ? `0${seconds}` : seconds}
 			</div>
