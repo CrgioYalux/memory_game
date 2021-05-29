@@ -1,15 +1,30 @@
 import './Stopwatch.css';
-import { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
-
-let counter;
+import {
+	useState,
+	useEffect,
+	forwardRef,
+	useImperativeHandle,
+	useRef,
+} from 'react';
 
 const Stopwatch = forwardRef(({}, ref) => {
 	const [seconds, setSeconds] = useState(0);
 	const [minutes, setMinutes] = useState(0);
+	const counter = useRef(() =>
+		setTimeout(() => {
+			setSeconds((c) => c + 1);
+			if (seconds === 59) {
+				setSeconds(0);
+				setMinutes((c) => c + 1);
+			}
+		}, 1000),
+	);
 
-	const stopCounting = () => {
-		clearTimeout(counter);
-	};
+	useEffect(() => {
+		counter.current();
+	}, [seconds]);
+
+	const stopCounting = () => clearTimeout(counter.current());
 
 	useImperativeHandle(ref, () => {
 		return {
@@ -18,16 +33,6 @@ const Stopwatch = forwardRef(({}, ref) => {
 			minutes,
 		};
 	});
-
-	useEffect(() => {
-		counter = setTimeout(() => {
-			setSeconds((c) => c + 1);
-			if (seconds === 59) {
-				setSeconds(0);
-				setMinutes((c) => c + 1);
-			}
-		}, 1000);
-	}, [seconds]);
 
 	return (
 		<div className="Stopwatch">

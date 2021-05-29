@@ -8,9 +8,8 @@ import {
 
 const wait = 1000;
 
-const Board = ({ options, dispatchScore }) => {
+const Board = ({ options, handleWL }) => {
 	const [actives, setActives] = useState([]);
-	const [time, setTime] = useState(Date.now());
 	const [completed, setCompleted] = useState([]);
 	const [restarted, setRestarted] = useState(true);
 
@@ -28,24 +27,18 @@ const Board = ({ options, dispatchScore }) => {
 		};
 	});
 
-	const restart = useRef(() => {
+	const restart = useRef((result) => {
 		dispatchBoard({ type: 'restart', difficulty: options.difficulty });
 		setCompleted([]);
 		setActives([]);
-		setTime(Date.now());
 		showthenhide.current();
 		setRestarted(true);
+		handleWL(result);
 	});
 
 	const addToActives = (id, idx) => {
-		if (board[idx].value === '!') {
-			dispatchScore({
-				type: 'lose',
-				difficulty: options.difficulty,
-				time: new Date(Date.now() - time).getSeconds(),
-			});
-			restart.current();
-		} else {
+		if (board[idx].value === '!') restart.current('lose');
+		else {
 			setActives((c) => [...c, idx]);
 			dispatchBoard({ type: 'select', id });
 		}
@@ -86,21 +79,25 @@ const Board = ({ options, dispatchScore }) => {
 
 	useEffect(() => {
 		const winCondition = completed.length === (options.difficulty ** 2 - 1) / 2;
+		if (winCondition) {
+			const startNewGame = setTimeout(() => {
+				restart.current('win');
+			}, wait * 0.5);
 
-		const startNewGame = setTimeout(() => {
-			winCondition && restart.current();
-		}, wait * 0.5);
+			return () => {
+				clearTimeout(startNewGame);
+			};
+		}
 
-		winCondition &&
-			dispatchScore({
-				type: 'win',
-				difficulty: options.difficulty,
-				time: new Date(Date.now() - time).getSeconds(),
-			});
-		return () => {
-			winCondition && clearTimeout(startNewGame);
-		};
-	}, [completed, options.difficulty, dispatchScore, time]);
+		// const startNewGame = setTimeout(() => {
+		// 	winCondition && restart.current();
+		// }, wait * 0.5);
+
+		// winCondition && handleWL('win');
+		// return () => {
+		// 	winCondition && clearTimeout(startNewGame);
+		// };
+	}, [completed, options.difficulty]);
 
 	return (
 		<div className={`board boardx${options.difficulty}`}>

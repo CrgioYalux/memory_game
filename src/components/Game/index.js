@@ -9,17 +9,41 @@ const Game = () => {
 	const { options, dispatchScore } = useContext(OptionsContext);
 	const [timerMode, setTimerMode] = useState(0);
 	const [time, setTime] = useState(options.difficulty);
-	const [usedTime, setUsedTime] = useState({ seconds: 0, minutes: 0 });
+	const [usedTime, setUsedTime] = useState(null);
 	const StopwatchRef = useRef();
+	const [result, setResult] = useState(null);
+
+	const handleWL = (result) => {
+		saveUsedTime();
+		setResult(result);
+		switchTimer.current();
+	};
 
 	useEffect(() => {
-		const switchTimer = setTimeout(() => {
+		result &&
+			dispatchScore({
+				type: result,
+				difficulty: options.difficulty,
+				time: usedTime,
+			});
+		return () => {
+			setResult(null);
+		};
+	}, [usedTime, result, dispatchScore, options.difficulty]);
+
+	const switchTimer = useRef(() => {
+		setTimerMode(0);
+		const counter = setTimeout(() => {
 			setTimerMode(1);
 		}, 1000 * options.difficulty);
 		return () => {
-			clearTimeout(switchTimer);
+			clearTimeout(counter);
 		};
-	}, [time, options.difficulty]);
+	});
+
+	useEffect(() => {
+		switchTimer.current();
+	}, []);
 
 	useEffect(() => {
 		if (options.difficulty === null) window.location.href = '/';
@@ -40,7 +64,7 @@ const Game = () => {
 				{options.difficulty ? (
 					<>
 						<div className="game-container">
-							<Board options={options} dispatchScore={dispatchScore} />
+							<Board options={options} handleWL={handleWL} />
 						</div>
 						<div className="timer-container">
 							{timerMode === 0 ? <Timer from={time} to={0} /> : null}
