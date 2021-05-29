@@ -13,15 +13,15 @@ const Stopwatch = forwardRef(({}, ref) => {
 	const counter = useRef(() =>
 		setTimeout(() => {
 			setSeconds((c) => c + 1);
-			if (seconds === 59) {
-				setSeconds(0);
-				setMinutes((c) => c + 1);
-			}
 		}, 1000),
 	);
 
 	useEffect(() => {
 		counter.current();
+		if (seconds === 59) {
+			setSeconds(0);
+			setMinutes((c) => c + 1);
+		}
 	}, [seconds]);
 
 	const stopCounting = () => clearTimeout(counter.current());
