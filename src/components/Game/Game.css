@@ -1,7 +1,26 @@
 .game {
 	min-height: 100vh;
+	display: grid;
+	grid-template-rows: 2fr 1fr;
+}
+
+.game-container {
+	height: 100%;
+	width: 100vw;
+
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	align-items: flex-end;
+	justify-content: center;
+
+	padding-bottom: 25px;
+}
+
+.timer-container {
+	height: 100%;
+	width: 100vw;
+
+	display: flex;
 	align-items: center;
 	justify-content: center;
 }

@@ -1,0 +1,27 @@
+.Timer {
+	width: 50%;
+	height: 50%;
+	/* background-color: rgba(0, 0, 0, 0.5); */
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.Timer-seconds {
+	width: 80%;
+	height: 80%;
+
+	background-color: rgba(255, 255, 255, 0.5);
+
+	border-radius: 16px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	font-family: sans-serif;
+	color: black;
+	font-size: 4rem;
+	font-weight: 900;
+}

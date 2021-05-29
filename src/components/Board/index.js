@@ -14,12 +14,6 @@ const Board = ({ options, dispatchScore }) => {
 	const [completed, setCompleted] = useState([]);
 	const [restarted, setRestarted] = useState(true);
 
-	useEffect(() => {
-		console.log(wait);
-		console.log(options.difficulty);
-		console.log(wait * options.difficulty);
-	}, [options.difficulty]);
-
 	const [{ board }, dispatchBoard] = useReducer(boardReducer, {
 		board: boardCreator(options.difficulty),
 	});
@@ -43,10 +37,6 @@ const Board = ({ options, dispatchScore }) => {
 		setRestarted(true);
 	});
 
-	useEffect(() => {
-		showthenhide.current();
-	}, []);
-
 	const addToActives = (id, idx) => {
 		if (board[idx].value === '!') {
 			dispatchScore({
@@ -60,6 +50,10 @@ const Board = ({ options, dispatchScore }) => {
 			dispatchBoard({ type: 'select', id });
 		}
 	};
+
+	useEffect(() => {
+		showthenhide.current();
+	}, []);
 
 	useEffect(() => {
 		const cleanBoard = !restarted
@@ -132,17 +126,11 @@ const Board = ({ options, dispatchScore }) => {
 						onClick={() => addToActives(id, idx)}
 					>
 						{!hiding ? value : '?'}
-						{/* {value} */}
 					</label>
 				</Fragment>
 			))}
 		</div>
 	);
 };
-
-// Ahora despues de seleccionar, check los completados y comenzar una nueva partida hay un timeout
-// Faltaria agregar timeouts para cuando se apreta el kill (???, y buscarle un mejor nombre) agregandole una animacion incluso
-// Finalmente faltaria poder mostrar cuantas W y L se llevan, incluso el tiempo por partida
-// En el menu faltaria una "base de datos" con las W y L y sus tiempos
 
 export default Board;
