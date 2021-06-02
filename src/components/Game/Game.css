@@ -1,43 +1,85 @@
 .game {
 	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
-@media screen and (max-width: 320px) {
-	.game {
-		display: grid;
-		grid-template-rows: 2fr 1fr;
-	}
+.game-container {
+	flex: 1 1 auto;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+}
 
-	.game-container {
-		width: 100vw;
-		height: 100%;
+.game-container > div {
+	width: 85vw;
+	height: 85vw;
+}
+
+.game-info {
+	font-size: 1.2rem;
+	flex: 1 1 auto;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@media only screen and (min-width: 385px) {
+	.game-container > div {
+		width: 70vw;
+		height: 70vw;
+	}
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 600px) {
+	.game {
 		display: flex;
 		flex-direction: row;
-		align-items: flex-end;
-		justify-content: center;
-
-		padding-bottom: 25px;
+		align-self: center;
+	}
+	.game-container {
+		flex: 1 1 auto;
+		/* outline: 1px solid red; */
 	}
 
-	.timer-container {
-		width: 100vw;
-		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+	.game-container > div {
+		width: 75vh;
+		height: 75vh;
 	}
-}
 
-@media screen and (min-width: 1280px) {
-	.game {
-		display: grid;
-		grid-template-columns: 2fr 1fr;
-		place-items: center;
-	}
 	.game-info {
+		flex: 1 1 auto;
+		/* outline: 1px solid red; */
+
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
+
+		font-size: 1.2rem;
+	}
+	.game-info {
+		align-items: flex-start;
+	}
+
+	.game-info > div {
+		position: relative;
+		left: 5%;
 	}
 }
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+	.game-info {
+		font-size: 1.6rem;
+	}
+	.game-info > div {
+		left: 15%;
+	}
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+/* @media only screen and (min-width: 1200px) {...}  */
