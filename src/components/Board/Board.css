@@ -185,19 +185,5 @@
 }
 
 .hiding {
-	background-color: rgba(255, 0, 0, 0.25);
-}
-
-@media screen and (max-width: 768px) and (orientation: portrait) {
-	.board {
-		width: 70vw;
-		height: 70vw;
-	}
-}
-
-@media screen and (max-height: 768px) and (orientation: landscape) {
-	.board {
-		width: 50vw;
-		height: 50vw;
-	}
+	background-color: rgba(200, 0, 50, 0.25);
 }

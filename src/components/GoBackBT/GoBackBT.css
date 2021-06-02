@@ -1,107 +1,23 @@
 .GoBackBT {
 	position: absolute;
 
-	font-size: 1rem;
-
 	top: 5px;
 	left: 5px;
 
-	width: 2.5em;
-	height: 2.5em;
-	background-color: transparent;
-	border: 5px dashed rgba(255, 0, 0, 0.6);
+	width: 3rem;
+	height: 3rem;
+
+	border: 5px solid whitesmoke;
 
 	border-radius: 50%;
 
-	text-decoration: none;
-	box-shadow: inset 0 0 0px 40px rgba(0, 0, 0, 0.4),
-		0 0 5px 2px rgba(0, 0, 0, 0.6);
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
-.GoBackBT::after {
-	content: '';
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%) rotate(30deg);
-	width: 95%;
-	height: 95%;
-
-	border-radius: 50%;
-
-	z-index: -100;
-
-	border: 5px dashed rgba(255, 0, 0, 0.7);
-	box-shadow: inset 0 0 5px 15px rgba(0, 0, 0, 0.4);
+.GoBackBT svg {
+	fill: white;
+	transform: rotate(180deg);
+	width: 2rem;
 }
-
-.GoBackBT::before {
-	content: '';
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%) rotate(60deg);
-	width: 80%;
-	height: 80%;
-
-	border-radius: 50%;
-
-	z-index: -100;
-
-	border: 5px dashed rgba(255, 0, 0, 0.5);
-	box-shadow: inset 0 0 5px 20px rgba(0, 0, 0, 0.4);
-}
-
-.GoBackBT p {
-	height: 100%;
-	width: 100%;
-
-	position: absolute;
-
-	top: 50%;
-	left: 50%;
-
-	transform: translate(-50%, -50%);
-
-	display: grid;
-	place-items: center;
-
-	/* font-family: 'Courier New', Courier, monospace; */
-	font-family: 'Courier New', Courier, monospace;
-	font-size: 1.5em;
-	font-weight: bolder;
-
-	color: rgba(255, 255, 255, 1);
-
-	box-shadow: inset 0 0 5px 0px rgba(0, 0, 0, 0.4);
-
-	border-radius: 50%;
-}
-
-@keyframes rotate-pseudos {
-	from {
-		transform: translate(-50%, -50%) rotate(0deg);
-	}
-	to {
-		transform: translate(-50%, -50%) rotate(360deg);
-	}
-}
-
-@keyframes rotate {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
-}
-
-/* @media screen and (min-width: 1280px) {
-	.GoBackBT:hover {
-		animation: rotate 2s alternate-reverse 0s infinite forwards ease-in-out;
-	}
-	.GoBackBT:hover::after,
-	.GoBackBT:hover::before {
-		animation: rotate-pseudos 1s alternate-reverse 0s infinite forwards ease-in;
-	}
-} */
