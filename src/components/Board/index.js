@@ -1,11 +1,7 @@
 import './Board.css';
-import { useEffect, useState, Fragment, useReducer, useRef } from 'react';
-import {
-	boardCreator,
-	boardReducer,
-	addClassToBorder,
-} from '../../helpers/BoardUtilities';
-import QuestionIcon from '../Icons/Question';
+import { useEffect, useState, useReducer, useRef } from 'react';
+import { boardCreator, boardReducer } from '../../helpers/BoardUtilities';
+import Piece from '../Piece';
 
 const wait = 1000;
 
@@ -93,36 +89,18 @@ const Board = ({ options, handleWL }) => {
 
 	return (
 		<div className={`board boardx${options.difficulty}`}>
-			{board.map(({ value, selected, id, paired, position, hiding }, idx) => (
-				<Fragment key={id}>
-					<input
-						type="checkbox"
-						id={`el-${id}`}
-						className={'element-checkbox'}
-						value={`el-${id}`}
-						readOnly={selected}
-						checked={selected}
-						onChange={() => {}}
-					/>
-					<label
-						htmlFor={`el-${id}`}
-						className={[
-							'element',
-							paired ? 'paired' : 'not-paired',
-							hiding ? 'hiding' : 'not-hiding',
-							addClassToBorder(position.x, position.y, options.difficulty),
-						].join(' ')}
-						onClick={() => addToActives(id, idx)}
-					>
-						{!hiding ? (
-							value
-						) : (
-							<QuestionIcon
-								styles={{ fill: 'white', width: '.8em', height: '.8em' }}
-							/>
-						)}
-					</label>
-				</Fragment>
+			{board.map((piece, idx) => (
+				<Piece
+					key={piece.id}
+					selected={piece.selected}
+					paired={piece.paired}
+					hiding={piece.hiding}
+					position={piece.position}
+					activate={() => addToActives(piece.id, idx)}
+					difficulty={options.difficulty}
+					value={piece.value}
+					idx={idx}
+				/>
 			))}
 		</div>
 	);

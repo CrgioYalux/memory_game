@@ -1,3 +1,8 @@
+:root {
+	--b-radius: 5px;
+	--c-metal: rgba(255, 255, 255, 0.5);
+}
+
 *,
 *::before,
 *::after {
