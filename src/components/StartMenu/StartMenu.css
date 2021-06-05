@@ -1,10 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 .startmenu {
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-around;
-	font-family: sans-serif;
+	font-family: 'Roboto', sans-serif;
+	font-weight: bolder;
 }
 
 .startmenu-header {
@@ -40,9 +43,9 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-around;
-
 	background: #0c0c0c6e;
-	box-shadow: 0 8px 62px 0 rgba(62, 75, 255, 0.2);
+
+	box-shadow: 0 0 50px -10px rgba(50, 100, 200, 0.2);
 	backdrop-filter: blur(20px);
 	-webkit-backdrop-filter: blur(20px);
 
@@ -56,7 +59,7 @@
 	height: 60%;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-around;
+	justify-content: space-evenly;
 }
 
 .diff-option {
@@ -91,7 +94,7 @@
 	justify-content: space-around;
 
 	background: #3030306b;
-	box-shadow: 0 8px 62px 0 rgba(62, 75, 255, 0.2);
+	box-shadow: 0 0 50px -10px rgba(50, 100, 200, 0.2);
 	backdrop-filter: blur(20px);
 	-webkit-backdrop-filter: blur(20px);
 
@@ -133,15 +136,15 @@
 	color: white;
 	font-size: 2rem;
 	text-align: center;
-	width: 20%;
-	border: 2px solid white;
+	width: 10%;
+	border: 4px dashed white;
 	cursor: pointer;
 	text-decoration: none;
 }
 
 @media screen and (min-width: 600px) {
 	.startmenu-bt {
-		animation: shake 1.3s ease 0.2s infinite alternate-reverse;
+		animation: shake 1.4s ease 0.2s infinite alternate-reverse;
 	}
 	@keyframes shake {
 		10%,

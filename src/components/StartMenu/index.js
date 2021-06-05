@@ -25,7 +25,7 @@ const StartMenu = () => {
 			<div className="startmenu">
 				<div className="startmenu-options">
 					<div className="options-diffs">
-						<h3>pick a difficulty</h3>
+						<h3>Difficulty</h3>
 						<form className="diffs-box">
 							<input type="radio" name="diff" value="x3" id="x3" />
 							<label
@@ -54,7 +54,7 @@ const StartMenu = () => {
 						</form>
 					</div>
 					<div className="options-setts">
-						<h3>settings</h3>
+						<h3>Settings</h3>
 						<div className="setts-box">
 							<input type="checkbox" id="background-switch" />
 							<label
