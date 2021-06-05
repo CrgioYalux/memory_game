@@ -15,9 +15,3 @@
 	align-items: center;
 	justify-content: center;
 }
-
-.GoBackBT svg {
-	fill: white;
-	transform: rotate(180deg);
-	width: 2rem;
-}

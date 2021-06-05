@@ -5,6 +5,7 @@ import {
 	boardReducer,
 	addClassToBorder,
 } from '../../helpers/BoardUtilities';
+import QuestionIcon from '../Icons/Question';
 
 const wait = 1000;
 
@@ -88,15 +89,6 @@ const Board = ({ options, handleWL }) => {
 				clearTimeout(startNewGame);
 			};
 		}
-
-		// const startNewGame = setTimeout(() => {
-		// 	winCondition && restart.current();
-		// }, wait * 0.5);
-
-		// winCondition && handleWL('win');
-		// return () => {
-		// 	winCondition && clearTimeout(startNewGame);
-		// };
 	}, [completed, options.difficulty]);
 
 	return (
@@ -122,7 +114,13 @@ const Board = ({ options, handleWL }) => {
 						].join(' ')}
 						onClick={() => addToActives(id, idx)}
 					>
-						{!hiding ? value : '?'}
+						{!hiding ? (
+							value
+						) : (
+							<QuestionIcon
+								styles={{ fill: 'white', width: '.8em', height: '.8em' }}
+							/>
+						)}
 					</label>
 				</Fragment>
 			))}
