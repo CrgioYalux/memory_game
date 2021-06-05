@@ -17,7 +17,7 @@ const GoBackBT = () => {
 
 	return (
 		location.pathname !== '/' && (
-			<Link to="/" className="GoBackBT">
+			<Link to="/memory_game" className="GoBackBT">
 				<ArrowIcon styles={styles} />
 			</Link>
 		)

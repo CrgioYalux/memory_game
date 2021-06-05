@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Redirect,
+} from 'react-router-dom';
 import { useState, useReducer, useMemo } from 'react';
 import StartMenu from './components/StartMenu';
 import Game from './components/Game';
@@ -33,9 +38,10 @@ const App = () => {
 			<Router>
 				<Background display={options.background} />
 				<GoBackBT />
+				<Redirect to="/memory_game" />
 				<OptionsContext.Provider value={providerValue}>
 					<Switch>
-						<Route exact path="/" component={StartMenu} />
+						<Route exact path="/memory_game" component={StartMenu} />
 						<Route path="/game" component={Game} />
 					</Switch>
 				</OptionsContext.Provider>
