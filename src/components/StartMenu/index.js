@@ -2,6 +2,7 @@ import './StartMenu.css';
 import { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { OptionsContext } from '../../hooks/OptionsContext';
+import DifficultyOption from '../DifficultyOption';
 
 const StartMenu = () => {
 	const [diff, setDiff] = useState(null);
@@ -26,32 +27,11 @@ const StartMenu = () => {
 				<div className="startmenu-options">
 					<div className="options-diffs">
 						<h3>Difficulty</h3>
-						<form className="diffs-box">
-							<input type="radio" name="diff" value="x3" id="x3" />
-							<label
-								htmlFor="x3"
-								className="diff-option"
-								onClick={() => changeDiff(3)}
-							>
-								3x3
-							</label>
-							<input type="radio" name="diff" value="x5" id="x5" />
-							<label
-								htmlFor="x5"
-								className="diff-option"
-								onClick={() => changeDiff(5)}
-							>
-								5x5
-							</label>
-							<input type="radio" name="diff" value="x7" id="x7" />
-							<label
-								htmlFor="x7"
-								className="diff-option"
-								onClick={() => changeDiff(7)}
-							>
-								7x7
-							</label>
-						</form>
+						<div className="diffs-box">
+							<DifficultyOption level={3} select={() => changeDiff(3)} />
+							<DifficultyOption level={5} select={() => changeDiff(5)} />
+							<DifficultyOption level={7} select={() => changeDiff(7)} />
+						</div>
 					</div>
 					<div className="options-setts">
 						<h3>Settings</h3>

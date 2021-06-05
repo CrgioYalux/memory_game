@@ -62,27 +62,6 @@
 	justify-content: space-evenly;
 }
 
-.diff-option {
-	width: 25%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-
-	/* glassmorphism */
-	background: #3f4bb98c;
-	backdrop-filter: blur(20px);
-	-webkit-backdrop-filter: blur(20px);
-	border-radius: 99px;
-
-	user-select: none;
-	cursor: pointer;
-
-	font-weight: 800;
-
-	border: 5px solid white;
-}
-
 /* other options */
 
 .options-setts {
@@ -169,29 +148,6 @@
 		}
 	}
 }
-
-#x3,
-#x5,
-#x7,
-#background-switch {
-	display: none;
-}
-
-#x3:checked ~ label[for='x3'] {
-	background-color: rgba(125, 200, 30, 0.8);
-}
-
-#x5:checked ~ label[for='x5'] {
-	background-color: rgba(250, 150, 0, 0.8);
-}
-
-#x7:checked ~ label[for='x7'] {
-	background-color: rgba(206, 47, 29, 0.8);
-}
-
-/* #background-switch:checked ~ label[for='background-switch'] {
-	background-color: red;
-} */
 
 .light-text {
 	color: rgb(49, 59, 201);

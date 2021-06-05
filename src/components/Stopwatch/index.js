@@ -7,9 +7,10 @@ import {
 	useRef,
 } from 'react';
 
-const Stopwatch = forwardRef(({}, ref) => {
+const Stopwatch = forwardRef((props, ref) => {
 	const [seconds, setSeconds] = useState(0);
 	const [minutes, setMinutes] = useState(0);
+
 	const counter = useRef(() =>
 		setTimeout(() => {
 			setSeconds((c) => c + 1);
