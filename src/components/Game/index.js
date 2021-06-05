@@ -4,6 +4,7 @@ import { OptionsContext } from '../../hooks/OptionsContext';
 import Board from '../Board';
 import Timer from '../Timer';
 import Stopwatch from '../Stopwatch';
+import ResultsInGame from '../ResultsInGame';
 
 const Game = () => {
 	const { options, dispatchScore } = useContext(OptionsContext);
@@ -11,6 +12,10 @@ const Game = () => {
 	const [usedTime, setUsedTime] = useState(null);
 	const StopwatchRef = useRef();
 	const [result, setResult] = useState(null);
+
+	useEffect(() => {
+		if (options.difficulty === null) window.location.href = '/';
+	}, [options.difficulty]);
 
 	const handleWL = (result) => {
 		saveUsedTime();
@@ -44,10 +49,6 @@ const Game = () => {
 		switchTimer.current();
 	}, []);
 
-	useEffect(() => {
-		if (options.difficulty === null) window.location.href = '/';
-	}, [options.difficulty]);
-
 	const saveUsedTime = () => {
 		StopwatchRef.current.stopCounting();
 		setUsedTime({
@@ -67,6 +68,7 @@ const Game = () => {
 						</div>
 						<div className="game-info">
 							<div className="timer-container">
+								<ResultsInGame />
 								{timerMode === 0 ? (
 									<Timer from={options.difficulty} to={0} />
 								) : null}

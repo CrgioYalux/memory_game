@@ -14,8 +14,8 @@ export const scoreReducer = (state, action) => {
 			return {
 				score: {
 					...state.score,
-					loses: [
-						...state.score.loses,
+					losses: [
+						...state.score.losses,
 						{ difficulty: action.difficulty, time: action.time },
 					],
 				},

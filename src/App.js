@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useState, useReducer, useMemo, useEffect } from 'react';
+import { useState, useReducer, useMemo } from 'react';
 import StartMenu from './components/StartMenu';
 import Game from './components/Game';
 import Background from './components/Background';
@@ -19,17 +19,13 @@ const App = () => {
 	const [{ score }, dispatchScore] = useReducer(scoreReducer, {
 		score: {
 			wins: [],
-			loses: [],
+			losses: [],
 		},
 	});
 
-	useEffect(() => {
-		console.log(score);
-	}, [score]);
-
 	const providerValue = useMemo(
-		() => ({ options, setOptions, dispatchScore }),
-		[options, setOptions],
+		() => ({ options, setOptions, dispatchScore, score }),
+		[options, setOptions, score],
 	);
 
 	return (
