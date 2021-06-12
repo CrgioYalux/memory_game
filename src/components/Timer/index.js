@@ -1,17 +1,29 @@
 import './Timer.css';
-import { useCountdown } from '../../hooks/useTime';
+import { forwardRef, useImperativeHandle } from 'react';
+import { useTimer } from '../../hooks/useTime';
 
-const Timer = ({ from, to = { seconds: 0, minutes: 0 } }) => {
-	const { seconds } = useCountdown(from, to);
+const Timer = forwardRef((props, ref) => {
+	const { seconds, minutes, stopTimer } = useTimer();
+
+	useImperativeHandle(ref, () => {
+		return {
+			seconds,
+			minutes,
+			stopTimer,
+		};
+	});
 
 	return (
 		<div className="Timer">
-			<p> hiding in </p>
+			<div className="Timer-minutes">
+				{minutes < 10 ? `0${minutes}` : minutes}
+			</div>
+			:
 			<div className="Timer-seconds">
 				{seconds < 10 ? `0${seconds}` : seconds}
 			</div>
 		</div>
 	);
-};
+});
 
 export default Timer;

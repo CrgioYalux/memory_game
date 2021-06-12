@@ -2,8 +2,8 @@ import './Game.css';
 import { useContext, useState, useEffect, useRef } from 'react';
 import { OptionsContext } from '../../hooks/OptionsContext';
 import Board from '../Board';
+import Countdown from '../Countdown';
 import Timer from '../Timer';
-import Stopwatch from '../Stopwatch';
 import ResultsInGame from '../ResultsInGame';
 
 const Game = () => {
@@ -70,9 +70,11 @@ const Game = () => {
 							<div className="timer-container">
 								<ResultsInGame />
 								{timerMode === 0 ? (
-									<Timer from={{ seconds: options.difficulty, minutes: 0 }} />
+									<Countdown
+										from={{ seconds: options.difficulty, minutes: 0 }}
+									/>
 								) : null}
-								{timerMode === 1 ? <Stopwatch ref={StopwatchRef} /> : null}
+								{timerMode === 1 ? <Timer ref={StopwatchRef} /> : null}
 							</div>
 						</div>
 					</>
