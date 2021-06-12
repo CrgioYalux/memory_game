@@ -61,7 +61,7 @@ const Game = () => {
 	return (
 		<>
 			<div className="game">
-				{options.difficulty ? (
+				{options.difficulty && (
 					<>
 						<div className="game-container">
 							<Board options={options} handleWL={handleWL} />
@@ -69,16 +69,16 @@ const Game = () => {
 						<div className="game-info">
 							<div className="timer-container">
 								<ResultsInGame />
-								{timerMode === 0 ? (
+								{timerMode === 0 && (
 									<Countdown
 										from={{ seconds: options.difficulty, minutes: 0 }}
 									/>
-								) : null}
-								{timerMode === 1 ? <Timer ref={StopwatchRef} /> : null}
+								)}
+								{timerMode === 1 && <Timer ref={StopwatchRef} />}
 							</div>
 						</div>
 					</>
-				) : null}
+				)}
 			</div>
 		</>
 	);

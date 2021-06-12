@@ -16,8 +16,8 @@ const GoBackBT = () => {
 	const location = useLocation();
 
 	return (
-		location.pathname !== '/memory_game' && (
-			<Link to="/memory_game" className="GoBackBT">
+		location.pathname !== '/' && (
+			<Link to="/" className="GoBackBT">
 				<ArrowIcon styles={styles} />
 			</Link>
 		)

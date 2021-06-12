@@ -60,12 +60,12 @@ export const boardReducer = (state, action) => {
 		case 'update':
 			return {
 				board: state.board.reduce((acc, arr) => {
-					action.completed.map((i) => {
-						if (arr.value === i) {
+					for (const value of action.completed) {
+						if (arr.value === value) {
 							arr.paired = true;
 							arr.hiding = false;
 						}
-					});
+					}
 					return [...acc, arr];
 				}, []),
 			};
