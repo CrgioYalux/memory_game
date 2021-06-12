@@ -1,22 +1,8 @@
 import './Timer.css';
-import { useState, useEffect } from 'react';
+import { useCountdown } from '../../hooks/useTime';
 
-const Timer = ({ from, to }) => {
-	const [seconds, setSeconds] = useState(from);
-
-	useEffect(() => {
-		if (from > to) {
-			const counter =
-				seconds !== to - 1
-					? setTimeout(() => {
-							seconds > to && setSeconds((c) => c - 1);
-					  }, 1000)
-					: null;
-			return () => {
-				counter && clearTimeout(counter);
-			};
-		}
-	}, [seconds, to, from]);
+const Timer = ({ from, to = { seconds: 0, minutes: 0 } }) => {
+	const { seconds } = useCountdown(from, to);
 
 	return (
 		<div className="Timer">

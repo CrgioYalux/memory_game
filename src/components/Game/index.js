@@ -50,7 +50,7 @@ const Game = () => {
 	}, []);
 
 	const saveUsedTime = () => {
-		StopwatchRef.current.stopCounting();
+		StopwatchRef.current.stopTimer();
 		setUsedTime({
 			seconds: StopwatchRef.current.seconds,
 			minutes: StopwatchRef.current.minutes,
@@ -70,7 +70,7 @@ const Game = () => {
 							<div className="timer-container">
 								<ResultsInGame />
 								{timerMode === 0 ? (
-									<Timer from={options.difficulty} to={0} />
+									<Timer from={{ seconds: options.difficulty, minutes: 0 }} />
 								) : null}
 								{timerMode === 1 ? <Stopwatch ref={StopwatchRef} /> : null}
 							</div>
