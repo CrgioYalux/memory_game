@@ -36,12 +36,12 @@ const Board = ({ options, handleWL }) => {
 	}, [showthenhide]);
 
 	const restart = useRef((result) => {
+		handleWL(result);
 		dispatchBoard({ type: 'restart', difficulty: options.difficulty });
 		setCompleted([]);
 		setActives([]);
 		showthenhide.current();
 		setRestarted(true);
-		handleWL(result);
 	});
 
 	const addToActives = (id, idx) => {

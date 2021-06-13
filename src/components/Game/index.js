@@ -8,47 +8,40 @@ import ResultsInGame from '../ResultsInGame';
 
 const Game = () => {
 	const { options, dispatchScore } = useContext(OptionsContext);
+
+	useEffect(() => {
+		!options.difficulty && (() => (window.location.href = '/memory_game/'))();
+	}, [options.difficulty]);
+
 	const [timerMode, setTimerMode] = useState(0);
-	const [usedTime, setUsedTime] = useState(null);
-	const [result, setResult] = useState(null);
-	const StopwatchRef = useRef();
-	const timingRef = useRef();
+	const TimerRef = useRef();
+	const timerModeTimeOutRef = useRef();
 
 	const handleWL = (result) => {
-		saveUsedTime();
-		setResult(result);
-	};
-
-	const saveUsedTime = () => {
-		StopwatchRef.current &&
+		TimerRef.current &&
 			(() => {
-				StopwatchRef.current.stopTimer();
-				setUsedTime({
-					seconds: StopwatchRef.current.seconds,
-					minutes: StopwatchRef.current.minutes,
+				TimerRef.current.stopTimer();
+				dispatchScore({
+					type: result,
+					difficulty: options.difficulty,
+					time: {
+						seconds: TimerRef.current.seconds,
+						minutes: TimerRef.current.minutes,
+					},
 				});
 			})();
+		setTimerMode(0);
 	};
 
 	useEffect(() => {
-		result &&
-			dispatchScore({
-				type: result,
-				difficulty: options.difficulty,
-				time: usedTime,
-			});
-		return () => {
-			setResult(null);
-		};
-	}, [usedTime, result, dispatchScore, options.difficulty]);
-
-	useEffect(() => {
-		setTimerMode(0);
-		timingRef.current && clearTimeout(timingRef.current);
-		timingRef.current = setTimeout(() => {
+		timerModeTimeOutRef.current && clearTimeout(timerModeTimeOutRef.current);
+		timerModeTimeOutRef.current = setTimeout(() => {
 			setTimerMode(1);
 		}, 1000 * options.difficulty);
-	}, [options.difficulty, result]);
+		return () => {
+			timerModeTimeOutRef.current && clearTimeout(timerModeTimeOutRef.current);
+		};
+	}, [options.difficulty, timerMode]);
 
 	return (
 		<>
@@ -62,7 +55,7 @@ const Game = () => {
 							<div className="timer-container">
 								<ResultsInGame />
 								{timerMode ? (
-									<Timer ref={StopwatchRef} />
+									<Timer ref={TimerRef} />
 								) : (
 									<Countdown
 										from={{ seconds: options.difficulty, minutes: 0 }}
