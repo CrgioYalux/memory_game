@@ -49,7 +49,7 @@ const StartMenu = () => {
 					</div>
 				</div>
 				{diff ? (
-					<Link to="/game" className="startmenu-bt">
+					<Link to="/memory_game/play" className="startmenu-bt">
 						Go!
 					</Link>
 				) : null}
