@@ -61,14 +61,13 @@ const Game = () => {
 						<div className="game-info">
 							<div className="timer-container">
 								<ResultsInGame />
-								{/* <Countdown from={{ seconds: options.difficulty, minutes: 0 }} />
-								<Timer ref={StopwatchRef} /> */}
-								{timerMode === 0 && (
+								{timerMode ? (
+									<Timer ref={StopwatchRef} />
+								) : (
 									<Countdown
 										from={{ seconds: options.difficulty, minutes: 0 }}
 									/>
 								)}
-								{timerMode === 1 && <Timer ref={StopwatchRef} />}
 							</div>
 						</div>
 					</>

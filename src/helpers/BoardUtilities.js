@@ -100,20 +100,3 @@ export const addClassToBorder = (x, y, size) => {
 	if (y === size - 1) styles = [...styles, 'border-bottom'];
 	return styles.join(' ');
 };
-
-// don't look i'm legacy code since 2 min ago!
-// return [
-// 	...shuffleArray(
-// 		[...labels, ...labels, '!'].reduce((acc, arr, idx) => {
-// 			return [
-// 				...acc,
-// 				{
-// 					value: arr,
-// 					selected: false,
-// 					id: idx,
-// 					paired: false,
-// 				},
-// 			];
-// 		}, []),
-// 	),
-// ];

@@ -35,27 +35,6 @@ const Board = ({ options, handleWL }) => {
 		};
 	}, [showthenhide]);
 
-	// const showthenhide = useRef(() => {
-	// 	dispatchBoard({ type: 'show' });
-	// 	const hide = setTimeout(() => {
-	// 		dispatchBoard({ type: 'hide' });
-	// 	}, wait * options.difficulty);
-	// 	return () => {
-	// 		clearTimeout(hide);
-	// 	};
-	// });
-
-	// useEffect(() => {
-	// 	dispatchBoard({ type: 'show' });
-	// 	showthenhideRef.current && clearTimeout(showthenhideRef.current);
-	// 	showthenhideRef.current = setTimeout(() => {
-	// 		dispatchBoard({ type: 'hide' });
-	// 	}, wait * options.difficulty);
-	// 	return () => {
-	// 		showthenhideRef.current && clearTimeout(showthenhideRef.current);
-	// 	};
-	// }, [options.difficulty]);
-
 	const restart = useRef((result) => {
 		dispatchBoard({ type: 'restart', difficulty: options.difficulty });
 		setCompleted([]);
