@@ -11,6 +11,7 @@ import Background from './components/Background';
 import { OptionsContext } from './hooks/OptionsContext';
 import { scoreReducer } from './helpers/ScoreUtilities';
 import GoBackBT from './components/GoBackBT';
+import { BASE_PATH, GAME_PATH } from './helpers/paths';
 
 import './App.css';
 
@@ -37,12 +38,12 @@ const App = () => {
 		<>
 			<Router>
 				<Background display={options.background} />
-				<GoBackBT />
-				<Redirect to="/memory_game/" />
+				<GoBackBT goBackTo={BASE_PATH} />
+				<Redirect to={BASE_PATH} />
 				<OptionsContext.Provider value={providerValue}>
 					<Switch>
-						<Route exact path="/memory_game/" component={StartMenu} />
-						<Route path="/memory_game/play" component={Game} />
+						<Route exact path={BASE_PATH} component={StartMenu} />
+						<Route path={GAME_PATH} component={Game} />
 					</Switch>
 				</OptionsContext.Provider>
 			</Router>

@@ -1,6 +1,7 @@
 import './StartMenu.css';
 import { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { GAME_PATH } from '../../helpers/paths';
 import { OptionsContext } from '../../hooks/OptionsContext';
 import DifficultyOption from '../DifficultyOption';
 
@@ -49,7 +50,7 @@ const StartMenu = () => {
 					</div>
 				</div>
 				{diff ? (
-					<Link to="/memory_game/play" className="startmenu-bt">
+					<Link to={GAME_PATH} className="startmenu-bt">
 						Go!
 					</Link>
 				) : null}

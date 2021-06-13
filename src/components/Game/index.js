@@ -1,5 +1,6 @@
 import './Game.css';
 import { useContext, useState, useEffect, useRef } from 'react';
+import { BASE_PATH } from '../../helpers/paths';
 import { OptionsContext } from '../../hooks/OptionsContext';
 import Board from '../Board';
 import Countdown from '../Countdown';
@@ -10,7 +11,7 @@ const Game = () => {
 	const { options, dispatchScore } = useContext(OptionsContext);
 
 	useEffect(() => {
-		!options.difficulty && (() => (window.location.href = '/memory_game/'))();
+		!options.difficulty && (() => (window.location.pathname = BASE_PATH))();
 	}, [options.difficulty]);
 
 	const [timerMode, setTimerMode] = useState(0);

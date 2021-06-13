@@ -12,12 +12,12 @@ const styles = {
 	height: '2rem',
 };
 
-const GoBackBT = () => {
+const GoBackBT = ({ goBackTo }) => {
 	const location = useLocation();
 
 	return (
-		location.pathname !== '/memory_game/' && (
-			<Link to="/memory_game/" className="GoBackBT">
+		location.pathname !== goBackTo && (
+			<Link to={goBackTo} className="GoBackBT">
 				<ArrowIcon styles={styles} />
 			</Link>
 		)
