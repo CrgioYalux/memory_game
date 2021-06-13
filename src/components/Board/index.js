@@ -40,8 +40,8 @@ const Board = ({ options, handleWL }) => {
 		dispatchBoard({ type: 'restart', difficulty: options.difficulty });
 		setCompleted([]);
 		setActives([]);
-		showthenhide.current();
 		setRestarted(true);
+		showthenhide.current();
 	});
 
 	const addToActives = (id, idx) => {
@@ -73,25 +73,12 @@ const Board = ({ options, handleWL }) => {
 	}, [actives, board, restarted]);
 
 	useEffect(() => {
-		const showPairs = setTimeout(() => {
-			dispatchBoard({ type: 'update', completed });
-		}, wait * 0.5);
-		return () => {
-			clearTimeout(showPairs);
-		};
+		dispatchBoard({ type: 'update', completed });
 	}, [completed]);
 
 	useEffect(() => {
 		const winCondition = completed.length === (options.difficulty ** 2 - 1) / 2;
-		if (winCondition) {
-			const startNewGame = setTimeout(() => {
-				restart.current('win');
-			}, wait * 0.5);
-
-			return () => {
-				clearTimeout(startNewGame);
-			};
-		}
+		winCondition && restart.current('win');
 	}, [completed, options.difficulty]);
 
 	return (

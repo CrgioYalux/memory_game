@@ -1,9 +1,12 @@
+import './App.css';
+
 import {
 	BrowserRouter as Router,
 	Switch,
 	Route,
 	Redirect,
 } from 'react-router-dom';
+
 import { useState, useReducer, useMemo } from 'react';
 import StartMenu from './components/StartMenu';
 import Game from './components/Game';
@@ -12,8 +15,6 @@ import { OptionsContext } from './hooks/OptionsContext';
 import { scoreReducer } from './helpers/ScoreUtilities';
 import GoBackBT from './components/GoBackBT';
 import { BASE_PATH, GAME_PATH } from './helpers/paths';
-
-import './App.css';
 
 const App = () => {
 	const [options, setOptions] = useState({
