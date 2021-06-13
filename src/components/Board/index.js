@@ -14,26 +14,20 @@ const Board = ({ options, handleWL }) => {
 		board: boardCreator(options.difficulty),
 	});
 
-	const showthenhideRef = useRef();
+	const showThenHideTimeOutRef = useRef();
 
 	const clearShowThenHide = () => {
-		showthenhideRef.current && clearTimeout(showthenhideRef.current);
+		showThenHideTimeOutRef.current &&
+			clearTimeout(showThenHideTimeOutRef.current);
 	};
 
-	const showthenhide = useRef(() => {
+	const showThenHideRef = useRef(() => {
 		dispatchBoard({ type: 'show' });
 		clearShowThenHide();
-		showthenhideRef.current = setTimeout(() => {
+		showThenHideTimeOutRef.current = setTimeout(() => {
 			dispatchBoard({ type: 'hide' });
 		}, wait * options.difficulty);
 	});
-
-	useEffect(() => {
-		showthenhide.current();
-		return () => {
-			clearShowThenHide();
-		};
-	}, [showthenhide]);
 
 	const restart = useRef((result) => {
 		handleWL(result);
@@ -41,16 +35,24 @@ const Board = ({ options, handleWL }) => {
 		setCompleted([]);
 		setActives([]);
 		setRestarted(true);
-		showthenhide.current();
+		showThenHideRef.current();
 	});
 
 	const addToActives = (id, idx) => {
-		if (board[idx].value === '!') restart.current('lose');
-		else {
-			setActives((c) => [...c, idx]);
-			dispatchBoard({ type: 'select', id });
-		}
+		board[idx].value === '!'
+			? restart.current('lose')
+			: (() => {
+					setActives((c) => [...c, idx]);
+					dispatchBoard({ type: 'select', id });
+			  })();
 	};
+
+	useEffect(() => {
+		showThenHideRef.current();
+		return () => {
+			clearShowThenHide();
+		};
+	}, [showThenHideRef]);
 
 	useEffect(() => {
 		const cleanBoard = !restarted
@@ -73,12 +75,9 @@ const Board = ({ options, handleWL }) => {
 	}, [actives, board, restarted]);
 
 	useEffect(() => {
-		dispatchBoard({ type: 'update', completed });
-	}, [completed]);
-
-	useEffect(() => {
-		const winCondition = completed.length === (options.difficulty ** 2 - 1) / 2;
-		winCondition && restart.current('win');
+		completed.length === (options.difficulty ** 2 - 1) / 2
+			? restart.current('win')
+			: dispatchBoard({ type: 'update', completed });
 	}, [completed, options.difficulty]);
 
 	return (
