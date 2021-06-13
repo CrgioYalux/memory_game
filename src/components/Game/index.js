@@ -10,17 +10,24 @@ const Game = () => {
 	const { options, dispatchScore } = useContext(OptionsContext);
 	const [timerMode, setTimerMode] = useState(0);
 	const [usedTime, setUsedTime] = useState(null);
-	const StopwatchRef = useRef();
 	const [result, setResult] = useState(null);
-
-	useEffect(() => {
-		if (options.difficulty === null) window.location.href = '/';
-	}, [options.difficulty]);
+	const StopwatchRef = useRef();
+	const timingRef = useRef();
 
 	const handleWL = (result) => {
 		saveUsedTime();
 		setResult(result);
-		switchTimer.current();
+	};
+
+	const saveUsedTime = () => {
+		StopwatchRef.current &&
+			(() => {
+				StopwatchRef.current.stopTimer();
+				setUsedTime({
+					seconds: StopwatchRef.current.seconds,
+					minutes: StopwatchRef.current.minutes,
+				});
+			})();
 	};
 
 	useEffect(() => {
@@ -35,28 +42,13 @@ const Game = () => {
 		};
 	}, [usedTime, result, dispatchScore, options.difficulty]);
 
-	const switchTimer = useRef(() => {
+	useEffect(() => {
 		setTimerMode(0);
-		const counter = setTimeout(() => {
+		timingRef.current && clearTimeout(timingRef.current);
+		timingRef.current = setTimeout(() => {
 			setTimerMode(1);
 		}, 1000 * options.difficulty);
-		return () => {
-			clearTimeout(counter);
-		};
-	});
-
-	useEffect(() => {
-		switchTimer.current();
-	}, []);
-
-	const saveUsedTime = () => {
-		StopwatchRef.current.stopTimer();
-		setUsedTime({
-			seconds: StopwatchRef.current.seconds,
-			minutes: StopwatchRef.current.minutes,
-		});
-		setTimerMode(3);
-	};
+	}, [options.difficulty, result]);
 
 	return (
 		<>
@@ -69,6 +61,8 @@ const Game = () => {
 						<div className="game-info">
 							<div className="timer-container">
 								<ResultsInGame />
+								{/* <Countdown from={{ seconds: options.difficulty, minutes: 0 }} />
+								<Timer ref={StopwatchRef} /> */}
 								{timerMode === 0 && (
 									<Countdown
 										from={{ seconds: options.difficulty, minutes: 0 }}

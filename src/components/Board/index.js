@@ -14,15 +14,47 @@ const Board = ({ options, handleWL }) => {
 		board: boardCreator(options.difficulty),
 	});
 
+	const showthenhideRef = useRef();
+
+	const clearShowThenHide = () => {
+		showthenhideRef.current && clearTimeout(showthenhideRef.current);
+	};
+
 	const showthenhide = useRef(() => {
 		dispatchBoard({ type: 'show' });
-		const hide = setTimeout(() => {
+		clearShowThenHide();
+		showthenhideRef.current = setTimeout(() => {
 			dispatchBoard({ type: 'hide' });
 		}, wait * options.difficulty);
-		return () => {
-			clearTimeout(hide);
-		};
 	});
+
+	useEffect(() => {
+		showthenhide.current();
+		return () => {
+			clearShowThenHide();
+		};
+	}, [showthenhide]);
+
+	// const showthenhide = useRef(() => {
+	// 	dispatchBoard({ type: 'show' });
+	// 	const hide = setTimeout(() => {
+	// 		dispatchBoard({ type: 'hide' });
+	// 	}, wait * options.difficulty);
+	// 	return () => {
+	// 		clearTimeout(hide);
+	// 	};
+	// });
+
+	// useEffect(() => {
+	// 	dispatchBoard({ type: 'show' });
+	// 	showthenhideRef.current && clearTimeout(showthenhideRef.current);
+	// 	showthenhideRef.current = setTimeout(() => {
+	// 		dispatchBoard({ type: 'hide' });
+	// 	}, wait * options.difficulty);
+	// 	return () => {
+	// 		showthenhideRef.current && clearTimeout(showthenhideRef.current);
+	// 	};
+	// }, [options.difficulty]);
 
 	const restart = useRef((result) => {
 		dispatchBoard({ type: 'restart', difficulty: options.difficulty });
@@ -40,10 +72,6 @@ const Board = ({ options, handleWL }) => {
 			dispatchBoard({ type: 'select', id });
 		}
 	};
-
-	useEffect(() => {
-		showthenhide.current();
-	}, []);
 
 	useEffect(() => {
 		const cleanBoard = !restarted
