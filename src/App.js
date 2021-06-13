@@ -38,11 +38,11 @@ const App = () => {
 			<Router>
 				<Background display={options.background} />
 				<GoBackBT />
-				<Redirect to="/" />
+				<Redirect to="/memory_game/" />
 				<OptionsContext.Provider value={providerValue}>
 					<Switch>
-						<Route exact path="/" component={StartMenu} />
-						<Route path="/game" component={Game} />
+						<Route exact path="/memory_game/" component={StartMenu} />
+						<Route path="/memory_game/play" component={Game} />
 					</Switch>
 				</OptionsContext.Provider>
 			</Router>
